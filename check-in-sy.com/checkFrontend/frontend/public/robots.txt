@@ -1,0 +1,242 @@
+import React, { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
+import axios from "axios";
+
+export default function HotelView() {
+  const { id } = useParams();
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const fetchHotel = async () => {
+    try {
+     const res = await axios.get(`http://localhost:4000/api/hotel-admin/admin/hotels/${id}`);
+
+      setData(res.data);
+    } catch (err) {
+      console.error("Error fetching hotel details:", err);
+      alert("❌ خطأ في تحميل تفاصيل الفندق");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchHotel();
+  }, [id]);
+
+  if (loading) return <p>⏳ جاري تحميل بيانات الفندق...</p>;
+  if (!data) return <p>❌ لم يتم العثور على بيانات الفندق</p>;
+
+  const { hotel, images, rooms, amenities, additionalServices, offers, reviews } = data;
+
+  return (
+    <div className="hotel-view content">
+      <div className="header">
+        <h2>🏨 تفاصيل الفندق: {hotel.name}</h2>
+        <Link to="/dashboard/hotels" className="btn">⬅️ رجوع للقائمة</Link>
+      </div>
+
+      {/* ================= معلومات أساسية ================= */}
+      <section className="section">
+        <h3>📋 معلومات الفندق</h3>
+        <table className="table info-table">
+          <tbody>
+            <tr><td>الاسم:</td><td>{hotel.name}</td></tr>
+            <tr><td>الوصف:</td><td>{hotel.description}</td></tr>
+            <tr><td>المدينة:</td><td>{hotel.city}</td></tr>
+            <tr><td>العنوان:</td><td>{hotel.address}</td></tr>
+            <tr><td>النجوم:</td><td>{hotel.stars}</td></tr>
+            <tr><td>الهاتف:</td><td>{hotel.phone}</td></tr>
+            <tr><td>الإيميل:</td><td>{hotel.email}</td></tr>
+            <tr><td>أدنى سعر:</td><td>{hotel.min_price}</td></tr>
+            <tr><td>أعلى سعر:</td><td>{hotel.max_price}</td></tr>
+          </tbody>
+        </table>
+        {hotel.main_image && (
+          <div className="main-img">
+            <img
+              src={`http://localhost:4000/${hotel.main_image}`}
+              alt={hotel.name}
+              style={{ width: "300px", borderRadius: "10px" }}
+            />
+          </div>
+        )}
+      </section>
+
+      {/* ================= صور الفندق ================= */}
+      <section className="section">
+        <h3>🖼 صور الفندق</h3>
+        {images.length > 0 ? (
+          <div className="images-grid">
+            {images.map((img) => (
+              <img
+                key={img.id}
+                src={`http://localhost:4000/${img.image_url}`}
+                alt=""
+                style={{
+                  width: "180px",
+                  height: "120px",
+                  objectFit: "cover",
+                  borderRadius: "10px",
+                  margin: "5px",
+                  border: img.is_main ? "3px solid gold" : "1px solid #ccc",
+                }}
+              />
+            ))}
+          </div>
+        ) : (
+          <p>لا توجد صور</p>
+        )}
+      </section>
+
+      {/* ================= الغرف ================= */}
+      <section className="section">
+        <h3>🛏 الغرف</h3>
+        {rooms.length > 0 ? (
+          rooms.map((room) => (
+            <div key={room.id} className="room-card">
+              <h4>{room.name}</h4>
+              <p>{room.description}</p>
+              <p>السعر: {room.price} ل.س</p>
+              {room.main_image && (
+                <img
+                  src={`http://localhost:4000/${room.main_image}`}
+                  alt={room.name}
+                  style={{ width: "220px", borderRadius: "8px" }}
+                />
+              )}
+
+              {/* صور إضافية */}
+              {room.images?.length > 0 && (
+                <div className="images-grid small">
+                  {room.images.map((img) => (
+                    <img
+                      key={img.id}
+                      src={`http://localhost:4000/${img.image_url}`}
+                      alt=""
+                      style={{ width: "100px", height: "80px", margin: "4px", borderRadius: "8px" }}
+                    />
+                  ))}
+                </div>
+              )}
+
+              {/* خدمات الغرفة */}
+              {room.services?.length > 0 && (
+                <table className="table small">
+                  <thead>
+                    <tr>
+                      <th>الخدمة</th>
+                      <th>مجانية؟</th>
+                      <th>السعر</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {room.services.map((srv) => (
+                      <tr key={srv.id}>
+                        <td>{srv.service_name}</td>
+                        <td>{srv.is_free ? "✅ نعم" : "❌ لا"}</td>
+                        <td>{srv.is_free ? "—" : srv.price}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          ))
+        ) : (
+          <p>لا توجد غرف</p>
+        )}
+      </section>
+
+      {/* ================= المرافق المجانية ================= */}
+      <section className="section">
+        <h3>🎁 المرافق المجانية</h3>
+        {amenities.length > 0 ? (
+          <ul>
+            {amenities
+              .filter((a) => a.is_free)
+              .map((a) => (
+                <li key={a.id}>
+                  {a.name} – {a.description}
+                </li>
+              ))}
+          </ul>
+        ) : (
+          <p>لا توجد مرافق مجانية</p>
+        )}
+      </section>
+
+      {/* ================= الخدمات المدفوعة ================= */}
+      <section className="section">
+        <h3>💰 الخدمات المدفوعة</h3>
+        {additionalServices.length > 0 ? (
+          <table className="table small">
+            <thead>
+              <tr>
+                <th>الخدمة</th>
+                <th>الوصف</th>
+                <th>السعر</th>
+                <th>متاحة؟</th>
+              </tr>
+            </thead>
+            <tbody>
+              {additionalServices.map((s) => (
+                <tr key={s.id}>
+                  <td>{s.name}</td>
+                  <td>{s.description}</td>
+                  <td>{s.price}</td>
+                  <td>{s.available ? "✅" : "❌"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>لا توجد خدمات مدفوعة</p>
+        )}
+      </section>
+
+      {/* ================= العروض ================= */}
+      <section className="section">
+        <h3>🏷 العروض</h3>
+        {offers.length > 0 ? (
+          <div className="offers-grid">
+            {offers.map((o) => (
+              <div key={o.id} className="offer-card">
+                <h4>{o.title}</h4>
+                <p>{o.description}</p>
+                <p>💵 السعر: {o.price}</p>
+                {o.image_url && (
+                  <img
+                    src={`http://localhost:4000/${o.image_url}`}
+                    alt={o.title}
+                    style={{ width: "200px", borderRadius: "8px" }}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>لا توجد عروض حالياً</p>
+        )}
+      </section>
+
+      {/* ================= التقييمات ================= */}
+      <section className="section">
+        <h3>⭐ التقييمات</h3>
+        {reviews.length > 0 ? (
+          <div className="reviews">
+            {reviews.map((r) => (
+              <div key={r.id} className="review-card">
+                <strong>{r.user_name || "مستخدم مجهول"}</strong> – ⭐ {r.rating}
+                <p>{r.comment}</p>
+                <small>{new Date(r.created_at).toLocaleDateString()}</small>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>لا توجد تقييمات بعد</p>
+        )}
+      </section>
+    </div>
+  );
+}

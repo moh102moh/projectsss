@@ -1,0 +1,626 @@
+:global(*) { box-sizing: border-box; }
+:global(*::before), :global(*::after) { box-sizing: border-box; }
+
+/* variables */
+:root{
+  --header-h: 72px;
+  --gutter: 24px;
+  --accent: #eac400;
+  --bg: #000;
+  --muted: rgba(255,255,255,0.14);
+  --globe-scale: 1.15; 
+}
+
+/* ================= SECTION ================= */
+.branchesSection{
+  height: 100vh;
+  width: 100%;
+  padding: 12px var(--gutter);
+  background: var(--bg);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* ================= TITLE ================= */
+/* ===== MAIN TITLE (same logic as OUR JOURNEY) ===== */
+.mainTitle{
+  font-size: 3.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1;
+  color: #fff;
+
+  text-align: center;
+  margin: 0 auto;
+  max-width: 900px;
+
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  z-index: 120;
+  pointer-events: none;
+}
+
+/* yellow word */
+.mainTitle .yellow{
+  color: #FFD700;
+}
+
+/* ===== Tablet ===== */
+
+
+@media (max-width:1024px){
+  .mainTitle{ left:50%; transform:translateX(-50%); top:10px; text-align:center; }
+}
+.mainTitle{    font-size: 2.5rem !important;
+  }
+
+
+/* ===== BRANCH BUTTONS (under title) ===== */
+.branchesWrapper{
+  display:flex;
+  gap:8px;
+  border-radius:12px;
+  overflow:hidden;
+  margin:64px 0 14px 0;
+  align-self:stretch;
+  justify-content:center;
+}
+.branchButton{
+  flex:1 1 auto;
+  padding:12px 8px;
+  background:#0d0d0d;
+  color:#fff;
+  font-size:clamp(12px,1.4vw,16px);
+  font-weight:700;
+  border:0;
+  cursor:pointer;
+}
+.branchButton.selected{
+  background:transparent;
+  color:var(--accent);
+  box-shadow:inset 0 -3px 0 0 rgba(234,196,0,0.14);
+}
+
+/* ================= GRID (main area) ================= */
+.contentGrid{
+  width:100%;
+  max-width:1380px;
+  margin:0 auto;
+  height: calc(100vh - var(--header-h) - 120px);
+  display:grid;
+  grid-template-columns: 1fr 1.45fr; /* visual column larger */
+  gap:18px;
+  align-items:center;
+  padding-top: calc(var(--header-h) + 60px);
+  overflow: visible;
+}
+
+/* ================= VISUAL COLUMN ================= */
+.visualColumn{
+  position:relative;
+  display:flex;
+  align-items:flex-start;  /* put globe higher */
+  justify-content:center;  /* center globe horizontally inside visual column */
+  height:100%;
+  overflow: visible; /* allow canvas to expand */
+  background:var(--bg);
+  padding-bottom:4%;
+  z-index:10;
+}
+
+/* globe wrapper: keep it centered and allow some overflow vertically */
+.globeWrapper{
+  width: 100%;
+  height: 100%;
+  max-height: calc(100vh - var(--header-h) - 24px);
+  display:block;
+  position:relative;
+  background: var(--bg);
+  overflow: visible;
+  border-radius: 10px;
+  margin: 0 auto;
+  transform: translateY(-48px); /* raise globe wrapper up a bit */
+  transition: transform 260ms ease;
+}
+
+/* Canvas: CENTER the globe (translateX(-50%)) and scale using var --globe-scale.
+   This avoids pushing the globe to one side via CSS; horizontal centering + camera tweaks in JS guarantee no cut. */
+.globeWrapper canvas{
+  position: absolute !important;
+  left: 50% !important;
+  top: -8% !important;               /* reveal a bit more top */
+  transform: translateX(-50%) scale(var(--globe-scale)) !important; /* CENTERED */
+  transform-origin: center top;
+  width: auto !important;            /* keep natural aspect, let scale control size */
+  height: 115% !important;           /* slight vertical oversize so top/bottom visible */
+  max-height: none !important;
+  display:block;
+  background: var(--bg) !important;
+  pointer-events: auto;
+  transition: transform 260ms ease, top 260ms ease;
+}
+
+/* bottom mask - black gradient to hide lower hemisphere */
+.visualColumn::after{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:0;
+  height: 26%;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 85%);
+  z-index: 40;
+  pointer-events: none;
+}
+
+
+/* ================= TEXT (form) column ================= */
+/* raise and push slightly right to avoid overlap with centered globe */
+.textColumn{
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  gap:8px;
+  padding: 6px 48px 0 24px; /* give extra right padding so form doesn't collide with globe */
+  text-align:left;
+  overflow:hidden;
+  transform: translateY(-80px); /* raise form on desktop */
+  transition: transform 260ms ease;
+}
+
+/* inner content */
+.branchTitle{ font-size: clamp(16px,1.8vw,20px); font-weight:700; color:var(--accent); margin:6px 0 8px 0; }
+.borderedParagraph{ border:1px solid var(--muted); border-radius:6px; padding:8px 10px; margin-bottom:8px; font-size: clamp(12px,1.6vw,14px); line-height:1.4; color:#ccc; background: rgba(255,255,255,0.02); max-height:16vh; overflow:auto; }
+
+.formGroup{ display:flex; gap:10px; margin-bottom:10px; align-items:center; }
+.inputWrapper, .inputWrapperFull{ flex:1 1 auto; min-width:0; display:flex; flex-direction:column; }
+.inputLabel{ font-size:11px; color:#fff; text-transform:uppercase; margin-bottom:6px; letter-spacing:0.6px; }
+.inputField, .selectField, .selectFieldFull, .textareaField{ background:transparent; border:1px solid rgba(255,255,255,0.18); color:#fff; padding:8px 10px; border-radius:6px; font-size:14px; line-height:1.2; }
+.textareaField{ min-height:84px; resize:vertical; }
+
+.submitButton{ background:var(--accent); color:#000; border:none; padding:10px 18px; font-size:14px; font-weight:700; border-radius:6px; cursor:pointer; width:180px; }
+.statusMessage{ margin-top:8px; padding:8px; font-size:13px; color:var(--accent); border-radius:6px; border:1px solid var(--accent); text-align:center; }
+
+/* ================= RESPONSIVE ADJUSTMENTS ================= */
+@media (max-width:1024px){
+  .contentGrid{ grid-template-columns: 1fr; height: calc(100vh - var(--header-h) - 140px); padding-top: calc(var(--header-h) + 60px); gap: 12px; }
+  .visualColumn{ order:0; height: 52vh; justify-content:center; align-items:center; padding-bottom:0; }
+  .globeWrapper{ width: 140%; height: 100%; transform: translateY(-28px); }
+  /* reduce scale on tablet to avoid right/left clipping */
+  :root { --globe-scale: 1.10; }
+  .globeWrapper canvas{ transform: translateX(-50%) scale(var(--globe-scale)) !important; top:-10% !important; height:110% !important; }
+  .textColumn{ order:1; padding:10px 20px; gap:8px; height:46vh; transform: translateY(-80px); overflow:auto; text-align:center; }
+  .borderedParagraph{ max-height:12vh; }
+}
+
+@media (max-width:640px){
+  .contentGrid{ height: calc(100vh - 64px); padding-top: 64px; }
+  .visualColumn{ height:48vh; }
+  :root { --globe-scale: 1.05; }
+  .globeWrapper{ width:180%; transform: translateY(-16px); }
+  .globeWrapper canvas{ transform: translateX(-50%) scale(var(--globe-scale)) !important; top:-12% !important; height:105% !important; }
+  .textColumn{ height:52vh; padding:8px 10px; transform: translateY(-44px); }
+  .submitButton{ width:100%; }
+  
+}
+
+@media (max-width:420px){
+  .mainTitle{  font-size: 2.5rem; top:8px; left:12px; }
+  .contentGrid{ height: calc(100vh - 56px); padding-top: 56px; gap:8px; }
+  .visualColumn{ height:44vh; }
+  :root { --globe-scale: 1.00; }
+  .globeWrapper{ width:220%; transform: translateY(-10px); }
+  .globeWrapper canvas{ transform: translateX(-50%) scale(var(--globe-scale)) !important; top:-12% !important; height:100% !important; }
+  .textColumn{ height:56vh; padding:8px; gap:6px; transform: translateY(-24px); overflow:auto; }
+  .borderedParagraph{ display:none; }
+}
+
+/* focus polish */
+.branchButton:focus, .submitButton:focus, .inputField:focus, .selectField:focus, .textareaField:focus{
+  outline:none;
+  box-shadow: 0 6px 18px rgba(234,196,0,0.06);
+  border-color: rgba(234,196,0,0.22);
+}
+/* =======================
+   Mobile / Tablet tweaks
+   ======================= */
+
+@media (max-width:1024px){
+  .mainTitle{
+    left:50% !important;
+    transform:translateX(-50%) !important;
+    top:8px !important; 
+    text-align:center !important;
+    pointer-events:none !important;
+    z-index:200 !important;
+  }
+
+  .branchesWrapper{
+    display:flex !important;
+    gap:6px !important;
+    margin:6px 0 0 0 !important;
+    justify-content:center !important; 
+    align-items:center !important;
+    overflow-x: visible !important;
+    padding:4px 8px !important;
+    border-radius:8px !important;
+    -webkit-overflow-scrolling: auto !important;
+    flex-wrap: nowrap !important; 
+    z-index:180 !important;
+    background: transparent !important;
+  }
+
+  .branchButton{
+    flex: 0 0 auto !important;
+    min-width:90px !important; 
+    padding:8px 10px !important;
+    white-space:nowrap !important;
+    border-radius:8px !important;
+    font-size:13px !important;
+  }
+
+  .contentGrid{
+    grid-template-columns: 1fr !important;
+    gap: 6px !important;
+    padding-top: calc(var(--header-h) + 8px) !important;
+    height: auto !important;
+  }
+
+  .visualColumn{
+    order: 0 !important;
+    height: 50vh !important; 
+    padding:0 !important;
+    overflow: visible !important;
+    z-index: 100 !important;
+  }
+
+  .globeWrapper{
+    width: 100vw !important;
+    max-width: none !important;
+    margin: 0 calc(50% - 50vw) !important;
+    transform: none !important;
+    left: 0 !important;
+    top: 0 !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+    position: relative !important;
+  }
+
+  .globeWrapper canvas{
+    left: 50% !important;
+    transform: translateX(-50%) scale(var(--globe-scale)) !important;
+    top: -4% !important; 
+    height: 115% !important;
+    width: auto !important;
+    max-height: none !important;
+  }
+
+  .visualColumn::after{
+    height: 36% !important;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 20%, rgba(0,0,0,0.95) 95%) !important;
+    z-index: 140 !important;
+  }
+
+  .textColumn{
+    order: 1 !important;
+    position: absolute !important;
+    left: 50% !important;
+    transform: translate(-70%, -18%) !important; 
+    top: 40% !important;
+    width: min(92%, 760px) !important;
+    max-width: 760px !important;
+    z-index: 220 !important;
+    background: rgba(0,0,0,0.75) !important; 
+    padding: 16px !important;
+    border-radius: 12px !important;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+    text-align: center !important;
+    transform-origin: center top !important;
+    overflow: visible !important; 
+  }
+
+  .borderedParagraph{
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .formGroup{ flex-direction: column !important; gap:8px !important; align-items: stretch !important; }
+  .inputWrapper, .inputWrapperFull{ width:100% !important; }
+  .submitButton{ width:100% !important; margin-top:6px !important; }
+
+  .branchButton.selected{ position: relative !important; z-index: 230 !important; }
+}
+
+@media (max-width:640px){
+  :root { --globe-scale: 1.05 !important; }
+  .branchesWrapper{ margin:4px 6px 0 6px !important; gap:5px !important; padding:4px 6px !important; }
+  .branchButton{ min-width:80px !important; font-size:12px !important; padding:6px 8px !important; }
+
+  .visualColumn{ height:48vh !important; }
+  .globeWrapper{ height:48vh !important; }
+
+  .textColumn{
+    top: 30% !important;
+    transform: translate(-50%, -6%) !important;
+    padding: 12px !important;
+    width: 94% !important;
+    max-width: 620px !important;
+    border-radius: 10px !important;
+    font-size: 14px !important;
+    overflow: visible !important;
+  }
+
+  .borderedParagraph{ display: none !important; }
+  .inputLabel{ font-size: 12px !important; }
+  .inputField, .selectField, .selectFieldFull, .textareaField { font-size: 14px !important; padding:8px !important; }
+  .mainTitle{ font-size: 16px !important; top:6px !important; }
+}
+
+.textColumn :is(input,select,textarea,button){
+  position: relative !important;
+  z-index: 240 !important;
+}
+@media (max-width:1024px){
+  .visualColumn{
+    height: 55vh !important; 
+    z-index: 100 !important;
+    overflow: visible !important;
+  }
+
+  .globeWrapper canvas{
+    top: -10% !important; 
+  }
+
+  .textColumn{
+    top: 25% !important; 
+    transform: translate(-50%, -10%) !important;
+    height: auto !important; 
+  }
+
+  .formGroup{
+    flex-direction: column !important;
+    gap: 10px !important;
+    align-items: stretch !important;
+  }
+
+  .inputWrapper, .inputWrapperFull{ width:100% !important; }
+  .submitButton{ width:100% !important; margin-top:6px !important; }
+}
+
+
+:root{
+
+  --branches-top: 96px !important;
+
+  --branches-bottom: 8px !important;
+
+  --header-h: 72px;
+  --gutter: 24px;
+  --accent: #eac400;
+  --bg: #000;
+  --muted: rgba(255,255,255,0.14);
+  --globe-scale: 1.15;
+}
+
+
+.branchesWrapper{
+  display:flex;
+  gap:8px;
+  border-radius:12px;
+  overflow:hidden;
+
+  margin: var(--branches-top) 0 var(--branches-bottom) 0 !important;
+  align-self:stretch;
+  justify-content:center;
+}
+
+
+@media (max-width:1024px){
+
+  :root { 
+    --branches-top: 48px !important;
+    --branches-bottom: 6px !important;
+  }
+
+  .branchesWrapper{
+    display:flex !important;
+    gap:6px !important;
+    margin: var(--branches-top) 0 var(--branches-bottom) 0 !important;
+    justify-content:center !important;
+  }
+}
+
+
+@media (max-width:640px){
+  :root {
+    --branches-top: 28px !important;
+    --branches-bottom: 6px !important;
+  }
+
+  .branchesWrapper{
+    margin: var(--branches-top) 0 var(--branches-bottom) 0 !important;
+    gap:5px !important;
+    padding:4px 6px !important;
+  }
+}
+/* ===== DESKTOP LARGE ===== */
+.mainTitle{
+  font-size: 3.5rem;
+}
+
+/* ===== TABLET & MOBILE ===== */
+@media (max-width:1024px){
+  .mainTitle{
+    font-size: 2.0rem !important;
+    
+  }
+  .mainTitle{
+  white-space: nowrap !important;
+}
+
+}
+
+/* ===== SMALL MOBILE ===== */
+@media (max-width:640px){
+  .mainTitle{
+    font-size: 2.0rem !important;
+  }
+  .mainTitle{
+  white-space: nowrap !important;
+}
+
+}
+
+/* ===== VERY SMALL ===== */
+@media (max-width:420px){
+  .mainTitle{
+    font-size: 2.0rem !important;
+  }
+  .mainTitle{
+  white-space: nowrap !important;
+}
+
+} 
+@media (min-width:1025px) {
+  .globeWrapper {
+              
+    transform: translateY(-50px) !important; 
+     left: 10% !important;
+  }
+  
+}.textColumn {
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+.textColumn {
+  background: rgba(0,0,0,0.3) !important; 
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 12px;
+}
+.textColumn{
+  z-index: 220 !important;
+}
+
+.visualColumn::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+
+  height: 40% !important; 
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,0) 0%,    
+    rgba(0,0,0,0.4) 40%,   
+    rgba(0,0,0,0.8) 70%,  
+    rgba(0,0,0,1) 100%     
+  ) !important;
+  pointer-events: none !important;
+  z-index: 40 !important;
+}.globeWrapper canvas {
+  position: absolute !important;
+  left: 50% !important;
+  top: -8% !important;
+  transform: translateX(-50%) scale(var(--globe-scale)) !important;
+  width: auto !important;
+  height: 115% !important;
+  
+
+  -webkit-mask-image: linear-gradient(to bottom, 
+    black 0%, 
+    black 75%, 
+    transparent 95%
+  );
+  mask-image: linear-gradient(to bottom, 
+    black 0%, 
+    black 75%, 
+    transparent 95%
+  );
+
+}
+
+
+
+.rtl{
+  direction: rtl;
+  font-family: 'Cairo', system-ui, sans-serif;
+}
+
+.rtl .contentGrid{
+  direction: rtl;
+  grid-template-columns: 1.45fr 1fr; 
+}
+
+
+.rtl .textColumn{
+  text-align: right;
+  padding-inline: 24px 48px; 
+  transform: translateY(-80px); 
+}
+
+
+.rtl .formGroup{
+  flex-direction: row-reverse;
+}
+
+
+.rtl input,
+.rtl textarea,
+.rtl select{
+  text-align: right;
+}
+
+
+.rtl .visualColumn{
+  order: -1;
+}
+
+
+
+
+.selectField,
+.selectFieldFull {
+  background: #000 !important;
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,0.18) !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  padding-right: 12px !important; 
+}
+
+
+.selectField option,
+.selectFieldFull option {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+
+.selectField option:first-child,
+.selectFieldFull option:first-child {
+  color: #fff !important;
+  background: #000 !important;
+}
+
+
+.selectField:focus,
+.selectFieldFull:focus {
+  outline: none !important;
+  box-shadow: 0 6px 18px rgba(234,196,0,0.06) !important;
+  border-color: rgba(234,196,0,0.22) !important;
+}
+
+

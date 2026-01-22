@@ -1,0 +1,78 @@
+@font-face {
+    font-family: 'beIN New Arabic Font 2017';
+    src: url('beINNewArabicFont2017-Bold.eot');
+    src: local('beIN New Arabic Font 2017 Bold'), local('beINNewArabicFont2017-Bold'),
+        url('beINNewArabicFont2017-Bold.eot?#iefix') format('embedded-opentype'),
+        url('beINNewArabicFont2017-Bold.woff2') format('woff2'),
+        url('beINNewArabicFont2017-Bold.woff') format('woff'),
+        url('beINNewArabicFont2017-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'beIN New Arabic Font 2017';
+    src: url('beINNewArabicFont2017-Thin.eot');
+    src: local('beIN New Arabic Font 2017 Thin'), local('beINNewArabicFont2017-Thin'),
+        url('beINNewArabicFont2017-Thin.eot?#iefix') format('embedded-opentype'),
+        url('beINNewArabicFont2017-Thin.woff2') format('woff2'),
+        url('beINNewArabicFont2017-Thin.woff') format('woff'),
+        url('beINNewArabicFont2017-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'beIN New Arabic Font 2017';
+    src: url('beINNewArabicFont2017-ExtraLight.eot');
+    src: local('beIN New Arabic Font 2017 ExtraLight'), local('beINNewArabicFont2017-ExtraLight'),
+        url('beINNewArabicFont2017-ExtraLight.eot?#iefix') format('embedded-opentype'),
+        url('beINNewArabicFont2017-ExtraLight.woff2') format('woff2'),
+        url('beINNewArabicFont2017-ExtraLight.woff') format('woff'),
+        url('beINNewArabicFont2017-ExtraLight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'beIN New Arabic Font 2017';
+    src: url('beINNewArabicFont2017-DemiBold.eot');
+    src: local('beIN New Arabic Font 2017 DemiBold'), local('beINNewArabicFont2017-DemiBold'),
+        url('beINNewArabicFont2017-DemiBold.eot?#iefix') format('embedded-opentype'),
+        url('beINNewArabicFont2017-DemiBold.woff2') format('woff2'),
+        url('beINNewArabicFont2017-DemiBold.woff') format('woff'),
+        url('beINNewArabicFont2017-DemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'beIN New Arabic Font 2017';
+    src: url('beINNewArabicFont2017-Regular.eot');
+    src: local('beIN New Arabic Font 2017 Regular'), local('beINNewArabicFont2017-Regular'),
+        url('beINNewArabicFont2017-Regular.eot?#iefix') format('embedded-opentype'),
+        url('beINNewArabicFont2017-Regular.woff2') format('woff2'),
+        url('beINNewArabicFont2017-Regular.woff') format('woff'),
+        url('beINNewArabicFont2017-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'beIN New Arabic Font 2017';
+    src: url('beINNewArabicFont2017-Light.eot');
+    src: local('beIN New Arabic Font 2017 Light'), local('beINNewArabicFont2017-Light'),
+        url('beINNewArabicFont2017-Light.eot?#iefix') format('embedded-opentype'),
+        url('beINNewArabicFont2017-Light.woff2') format('woff2'),
+        url('beINNewArabicFont2017-Light.woff') format('woff'),
+        url('beINNewArabicFont2017-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+

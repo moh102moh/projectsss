@@ -1,0 +1,26 @@
+{
+    "type": "MYBRANCHES",
+    "BRANCHES": [
+        {
+             "city": "ALMANAR",
+             "text": "MAN",
+             "lat": 24.72884572465801,
+             "lng": 46.80663907290279,
+             "size": 1
+        },
+          {
+             "city": "ALRIMAL",
+             "text": "RIM",
+             "lat": 26.728623721707695, 
+             "lng": 46.80657805274625,
+             "size": 1
+        },
+          {
+             "city": "Jeddah",
+             "text": "JED",
+             "lat": 21.4858,
+             "lng": 39.1925,
+             "size": 1
+        }
+    ]
+}

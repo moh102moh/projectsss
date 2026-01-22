@@ -1,0 +1,1332 @@
+'use client';
+
+import React, { useState, useRef, useEffect } from 'react';
+import styles from './ProMasterServices.module.css';
+import Link from 'next/link';
+
+// dynamic imports (kept as direct imports in your original)
+import ProMasterAbout from "./ProMasterAbout.jsx";
+import ProMasterStats from "./ProMasterStats.jsx";
+import ProMasterContact from './ProMasterContact.jsx';
+import ProMasterFooter from './ProMasterFooter.jsx';
+
+const heroCards = [
+  {
+    title: 'New Product from Promaster',
+    subtitle: 'Interior Ceramic An advanced interior ceramic coating specifically engineered to protect all interior surfaces of your vehicle.',
+    title_ar: 'منتج جديد من بروماستر',
+    subtitle_ar: 'طلاء سيراميك داخلي متطور مصمم لحماية جميع الأسطح الداخلية لمركبتك.',
+    iconUrl: '/image/BOTT.png'
+  },
+  {
+    title: 'Promaster New Year Offer!',
+    subtitle: 'Celebrate the New Year with 40% OFF on all our services.A limited-time opportunity to experience premium car care standards.',
+    title_ar: 'عرض السنة الجديدة من بروماستر!',
+    subtitle_ar: 'احتفل بالعام الجديد بخصم 40% على جميع خدماتنا. فرصة محدودة لتجربة معايير العناية الفاخرة للسيارات.',
+    iconUrl: '/image/ukguk.png'
+  },
+  {
+    title: 'Complete Protection Package',
+    subtitle: 'Comprehensive protection for your vehicle, including free flatbed pickup and delivery at no additional cost.',
+    title_ar: 'باقة الحماية الكاملة',
+    subtitle_ar: 'حماية شاملة لمركبتك، تشمل استلام وتسليم على سيارة سطح مجاني بدون تكلفة إضافية.',
+    iconUrl: '/image/qqqq.png'
+  },
+];
+
+const serviceCards = [
+  /* same as your original (kept) */
+  {
+    id: 1,
+    num: '01',
+    title: 'PPF (Paint Protection Film)',
+    title_ar: 'أفلام الحماية المطاطية',
+    description: 'High-flexibility, ultra-durable protective films precisely molded to wrap your vehicle’s body, shielding the original paint from scratches and daily wear. They provide a strong protective barrier that keeps your car looking new for as long as possible.',
+    description_ar: 'أفلام حماية مرنة ومقاومة جداً مصممة لتغليف جسم السيارة لحماية الطلاء الأصلي من الخدوش والاهتراء اليومي. توفر حاجزًا قويًا يحافظ على مظهر سيارتك وكأنها جديدة.',
+    images: ['/image/ppf.jpg','/image/55.jpeg','/image/56.jpeg','/image/57.jpeg','/image/58.jpeg'],
+    video: '/image/vv.mp4'
+  },
+  {
+    id: 2,
+    num: '02',
+    title: 'Nano Graphene Ceramic',
+    title_ar: 'حماية الطلاء بتقنية الجرافين',
+    description: 'An advanced coating technology based on nano particles that forms an exceptionally hard protective layer. It delivers superior resistance against scratches, fading, and harsh environmental contaminants, while adding a deep, glossy shine that enhances the paint and makes cleaning easier.',
+    description_ar: 'تقنية طلاء متقدمة تعتمد على جزيئات نانو لتشكيل طبقة واقية صلبة للغاية. توفر مقاومة ممتازة للخدوش وتلاشي اللون والملوثات، وتمنح لمعانًا عميقًا يسهل تنظيفه.',
+    images: ['/image/ceramic-graphene.jpg','/image/55.jpeg','/image/56.jpeg','/image/57.jpeg','/image/58.jpeg'],
+    video: '/image/vv.mp4'
+  },
+  {
+    id: 3,
+    num: '03',
+    title: 'CWF(Car Window Film)',
+    title_ar: 'تظليل حراري للنوافذ',
+    description: 'High-performance window films that give your car a refined appearance while providing effective insulation against heat and harmful UV rays. They ensure a more comfortable driving experience and protect the interior with optimal clarity in all conditions.',
+    description_ar: 'طلاءات عالية الأداء للإطارات تعطي مظهرًا أنيقًا وتوفر مقاومة للحرارة والأشعة فوق البنفسجية الضارة. تضمن تجربة قيادة مريحة وتحمي الداخل بوضوح مثالي.',
+    images: ['/image/window.jpg','/image/55.jpeg','/image/56.jpeg','/image/57.jpeg','/image/58.jpeg'],
+    video: '/image/vv.mp4'
+  },
+  {
+    id: 4,
+    num: '04',
+    title: 'Tire Coating',
+    title_ar: 'حماية الإطارات',
+    description: 'An innovative protection layer that combines rubberized coating with graphene oxide particles to create an exceptionally strong and glossy barrier. It increases surface hardness, boosts water repellency, and enhances resistance to weathering, giving your car a long-lasting, eye-catching shine.',
+    description_ar: 'طبقة حماية مبتكرة تجمع بين طلاء مطاطي وجزيئات أكسيد الجرافين لخلق حاجز قوي ولامع. تزيد من صلابة السطح وتقاوم الماء وتمنح لمعانًا طويل الأمد.',
+    images: ['/image/wheel.jpg','/image/55.jpeg','/image/56.jpeg','/image/57.jpeg','/image/58.jpeg'],
+    video: '/image/wheel.jpg'
+  },
+  {
+    id: 5,
+    num: '05',
+    title: 'Interior Chair',
+    title_ar: 'تنجيد داخلي',
+    description: 'Comprehensive upholstery solutions that include repairing, replacing, and upgrading your vehicle’s interior fabrics. We use premium materials and meticulous finishing to deliver enhanced comfort and a renewed, refined interior look that reflects your personal style.',
+    description_ar: 'حلول شاملة لتنجيد المقاعد تتضمن الإصلاح والاستبدال والترقية بمواد فاخرة وتشطيبات دقيقة لتوفير راحة ومظهر داخلي أنيق.',
+    images: ['/image/chair.jpg','/image/55.jpeg','/image/56.jpeg','/image/57.jpeg','/image/58.jpeg'],
+    video: '/image/vv.mp4'
+  },
+  {
+    id: 6,
+    num: '06',
+    title: 'Leather Flooring',
+    title_ar: 'أرضيات جلد',
+    description: 'Installation of high-definition dash cameras that record every moment of your journey. They provide added security, accurate incident documentation, and peace of mind with smart features and crystal-clear footage.',
+    description_ar: 'تركيب كاميرات داش عالية الجودة لتسجيل كل لحظة. توفر أمانًا إضافيًا وتوثيقًا دقيقًا للحوادث وراحة بال مع لقطات واضحة.',
+    images: ['/image/camera.jpg','/image/55.jpeg','/image/56.jpeg','/image/57.jpeg','/image/58.jpeg'],
+    video: '/image/matt.jpg'
+  },
+  { 
+    id: 7,
+    num: '07',
+    title: 'Dash Cam',
+    title_ar: 'داش كام',
+    description: 'Luxurious leather flooring options designed to elevate your car’s interior with a premium touch. Highly durable and easy to maintain, making them an ideal choice for enhancing both the look and protection of your car’s cabin.',
+    description_ar: 'خيارات أرضيات جلدية فاخرة لرفع مستوى داخلية سيارتك بلمسة راقية. متينة وسهلة الصيانة لحماية ومظهر أفضل.',
+    images: ['/image/matt.jpg','/image/55.jpeg','/image/56.jpeg','/image/57.jpeg','/image/58.jpeg'],
+    video: '/image/vv.mp4'
+  },
+  {
+    id: 8,
+    num: '08',
+    title: 'Interior Sound & Heat Insulation',
+    title_ar: 'عوازل صوت وحرارة داخل السيارة',
+    description: 'A complete insulation system that reduces external noise and minimizes heat transfer into the cabin. It delivers a quieter, more comfortable driving experience—especially valuable in hot weather and busy traffic environments.',
+    description_ar: 'نظام عزل كامل يقلل الضوضاء الخارجية ويقلل انتقال الحرارة إلى المقصورة. يمنح تجربة قيادة أهدأ وأكثر راحة، خاصة في الطقس الحار والزحام.',
+    images: ['/image/noise.jpg','/image/55.jpeg','/image/56.jpeg','/image/57.jpeg','/image/58.jpeg'],
+    video: '/image/vv.mp4'
+  }
+];
+
+const reviewCards = [
+  { name: 'MUAAZ ALI', text: 'خدمة ممتازه وتعامل راقي جداً والفنيين ماهرين لأبعد الحدود واهتمام ورعاية مكتملة وشغل مقنع للحد البعيد،  أوصيكم بمدير الفرع الفاتح السوداني رجل راقي وكلامه طيب واتوقع الاقبال علي الفرع بسبب ادارةالاستاذ الفاتح السوداني ياخ كلامه طيب ومحترم وما يحوجك الي اي شي والله تترك سيارتك وانت مرتاح وتستلمها وانت مبسوط ، وبعد يظل الفاتح يتابع ويهتم  معك وعشان يتأكد من الشغل يطلب منك تجي للمراجعه', avatar: '/image/ukguk.png' },
+  { name: 'amar abdalhafez', text: 'خدمة ممتازة ونوصي بهم بشدة ، والفنيين ممتازين والاخ الفاتح السوداني مسؤول الادارة تعامل ممتاز وخدمة جيدة ، واستفسرنا من باقي الخدمات لديهم شرحه وافي وملم بكل تفاصيل عمله', avatar: '/image/ukguk.png' },
+  { name: 'AB', text: 'الفاتح ممتاز ماقصر بشغله وانسان خلوق والشغل ممتاز جدا الله يعطيهم العافية', avatar: '/image/ukguk.png' },
+  { name: 'Mansour Alqahtani', text: 'ياشباب بصراحه الخدمه ممتازه والعزل الحراري واضح فيه فرق قبل وبعد وعندهم الشاب  ابو ابراهيم شاب جدا محترم وفريق عمل هادي', avatar: '/image/ukguk.png' },
+  { name: 'Anas Ali', text: 'شغلهم فن… وتركيبهم إتقان،التظليل مضبوط… وكأنه من المصنع مكان.العزل أمريكي… جودة ما لها مثيل،وسعرهم منافس… يخليك ترجع لهم كل جيل.وبعد الشغل… غسّلوا السيارة ونظفوها بإحسان،وأشكر الموظفة رزان والأستاذ عبد العليم على الاهتمام والمتابعة مع العميل بكل ود وامتنان.بصراحة… برو ماستر اسم على مسمى في كل زمان', avatar: '/image/ukguk.png' },
+];
+
+export default function ProMasterServices() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState(null);
+  
+
+  // language state: initialize from localStorage if available
+  const [lang, setLang] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('pm_lang') || 'en';
+    }
+    return 'en';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('pm_lang', lang);
+    if (typeof document !== 'undefined') {
+      document.documentElement.lang = lang === 'ar' ? 'ar' : 'en';
+    }
+  }, [lang]);
+
+  const changeCard = (direction) => {
+    setCurrentIndex(prev => {
+      let newIndex = prev + direction;
+      if (newIndex >= heroCards.length) newIndex = 0;
+      if (newIndex < 0) newIndex = heroCards.length - 1;
+      return newIndex;
+    });
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => changeCard(1), 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'Escape') setMobileMenuOpen(false);
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, []);
+
+  const activeCardData = heroCards[currentIndex];
+
+  const reviewWrapperRef = useRef(null);
+  const handleReviewHover = (isHovering) => {
+    if (reviewWrapperRef.current) {
+      reviewWrapperRef.current.style.animationPlayState = isHovering ? 'paused' : 'running';
+    }
+  };
+
+  const doubledReviews = [...reviewCards, ...reviewCards];
+  const closeModal = () => setSelectedService(null);
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'Escape') closeModal();
+    };
+    document.addEventListener('keydown', onKey);
+    document.body.style.overflow = selectedService ? 'hidden' : '';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, [selectedService]);
+
+  // translations for static texts
+  const t = {
+    en: {
+      main: 'MAIN',
+      gallery: 'GALLERY',
+      about: 'ABOUT US',
+      store: 'STORE',
+      cert: 'CERTIFICATION',
+      pricing: 'PRICING',
+      contact: 'CONTACT US',
+      goPrimary: 'Go Confidence',
+      years: '12 Years Of Expertise',
+      sub1: 'To Keep Your Car Protected',
+      sub2: 'At The Highest Levels',
+      ourServices: 'OUR SERVICES',
+      servicesDesc: `At PROMASTER, we go beyond car washing — we provide comprehensive automotive care
+              designed to protect, enhance, and maintain your vehicle's performance and appearance.`,
+      reviewsDesc: `At PROMASTER, we go beyond car washing — we provide comprehensive automotive care
+              designed to protect, enhance, and maintain your vehicle's performance and appearance.`,
+      mainBtn: 'Main',
+      closeBtn: 'Close',
+      requestService: 'Request service',
+      serviceNumPrefix: 'Service #'
+    },
+    ar: {
+      main: 'الرئيسية',
+      gallery: 'المعرض',
+      about: 'عن الشركة',
+      store: 'المتجر',
+      cert: 'الشهادات',
+      pricing: 'الأسعار',
+      contact: 'تواصل معنا',
+      goPrimary: 'انطلق بثقة',
+      years: '12 سنة من الخبرة',
+      sub1: 'للحفاظ على سيارتك محمية',
+      sub2: 'بأعلى المعايير',
+      ourServices: 'خدماتنا',
+      servicesDesc: `في بروماستر، نتخطى غسيل السيارات — نوفر رعاية شاملة للسيارات
+              مصممة لحماية وتحسين والمحافظة على أداء ومظهر مركبتك.`,
+      reviewsDesc: `في بروماستر، نتخطى غسيل السيارات — نوفر رعاية شاملة للسيارات
+              مصممة لحماية وتحسين والمحافظة على أداء ومظهر مركبتك.`,
+      mainBtn: 'الرئيسية',
+      closeBtn: 'إغلاق',
+      requestService: 'طلب الخدمة',
+      serviceNumPrefix: 'الخدمة #'
+    }
+  };
+
+  // helper to split first word (stable even if only one word)
+  const splitFirstWord = (str) => {
+    const parts = String(str).split(' ');
+    const first = parts.shift();
+    const rest = parts.join(' ');
+    return { first, rest };
+  };
+
+  return (
+    <div className={`${styles.wrapper} ${lang === 'ar' ? styles.rtl : ''}`} dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+      {/* HERO SECTION */}
+      <div className={styles.heroSection}>
+        {/* NAVBAR */}
+        <nav className={styles.navbar}>
+          <div className={styles.logo}><img src="/image/llogo.webp" alt="PROMASTER" /></div>
+
+          <ul className={styles.navLinks}>
+            <li><a href="#" className={styles.active}>{t[lang].main}</a></li>
+            <li><a href="/gallery">{t[lang].gallery}</a></li>
+            <li><a href="#about">{t[lang].about}</a></li>
+            <li><a href="/store" >{t[lang].store}</a></li>
+            <li><a href="/certificates" >{t[lang].cert}</a></li>
+            <li><a href="/pricing">{t[lang].pricing}</a></li>
+          </ul>
+
+          <div className={styles.contactLink}>
+            <a href="#contact-form" onClick={(e) => { e.preventDefault(); const contactSection = document.getElementById('contact-form'); if (contactSection) contactSection.scrollIntoView({ behavior: 'smooth' }); }}>{t[lang].contact}</a>
+          </div>
+
+          {/* language toggle */}
+          <button
+            className={styles.langToggle}
+            onClick={() => setLang(prev => prev === 'en' ? 'ar' : 'en')}
+            aria-label="Toggle language"
+            title={lang === 'en' ? 'العربية' : 'English'}
+          >
+            {lang === 'en' ? 'ع' : 'EN'}
+          </button>
+
+          <button
+            className={styles.mobileMenuButton}
+            onClick={() => setMobileMenuOpen(true)}
+            aria-label="Open menu"
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+        </nav>
+
+        {/* SIDE MENU OVERLAY */}
+        {mobileMenuOpen && (
+          <div
+            className={styles.sideMenuOverlay}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <div className={styles.sideMenu} onClick={(e) => e.stopPropagation()}>
+              <button className={styles.sideMenuClose} onClick={() => setMobileMenuOpen(false)} aria-label="Close menu">×</button>
+
+              <ul>
+                <li><a href="#" className={styles.active}>{t[lang].main}</a></li>
+                <li><a href="/gallery">{t[lang].gallery}</a></li>
+                <li><a href="#about" onClick={() => setMobileMenuOpen(false)}>{t[lang].about}</a></li>
+                <li><a href="/store" onClick={() => setMobileMenuOpen(false)}>{t[lang].store}</a></li>
+                <li><a href="/certificates" onClick={() => setMobileMenuOpen(false)}>{t[lang].cert}</a></li>
+                <li><a href="/pricing" onClick={() => setMobileMenuOpen(false)}>{t[lang].pricing}</a></li>
+                <li>
+                  <a href="#contact-form" onClick={(e) => {
+                     e.preventDefault();
+                     const contactSection = document.getElementById('contact-form');
+                     if (contactSection) contactSection.scrollIntoView({ behavior: 'smooth' });
+                     setMobileMenuOpen(false);
+                  }}>{t[lang].contact}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        )}
+
+        {/* HERO TEXT */}
+        <div className={styles.heroText}>
+          <h1 className={styles.goPrimary}>
+            {t[lang].goPrimary}
+            <span className={styles.inlineDots} aria-hidden="true">
+              <span className={styles.dot}>•</span><span className={styles.dot}>•</span><span className={styles.dot}>•</span>
+            </span>
+          </h1>
+
+          <h1 className={styles.whiteLarge}>{t[lang].years}</h1>
+
+          <h1 className={styles.whiteLargeSub}>
+            <span className={styles.yellowText}>{t[lang].sub1}</span>
+            <span className={styles.yellowText}>{t[lang].sub2}</span>
+          </h1>
+        </div>
+
+        {/* HERO VIDEO (background) */}
+        <div className={styles.heroVideoWrapper} aria-hidden="true">
+          <video
+            className={styles.heroVideoDesktop}
+            src="/image/carrrrrr.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+          />
+          <video
+            className={styles.heroVideoMobile}
+            src="/image/ccarr.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+          />
+        </div>
+
+        {/* slider cards (positioned over video at right-bottom) */}
+        <div className={styles.sliderStackContainer}>
+          <div className={`${styles.glassCard} ${styles.emptyCard}`}>
+            <div className={styles.emptyCardContent}>
+              {heroCards[(currentIndex - 1 + heroCards.length) % heroCards.length][ lang === 'ar' && heroCards[(currentIndex - 1 + heroCards.length) % heroCards.length].title_ar ? 'title_ar' : 'title' ]}
+            </div>
+          </div>
+
+          <div className={`${styles.glassCard} ${styles.activeCard}`}>
+            <div className={styles.cardIcon}><img src={activeCardData.iconUrl} alt="icon" /></div>
+            <div className={styles.cardText} key={currentIndex}>
+              <h4>{ lang === 'ar' && activeCardData.title_ar ? activeCardData.title_ar : activeCardData.title }</h4>
+              <h4>{ lang === 'ar' && activeCardData.subtitle_ar ? activeCardData.subtitle_ar : activeCardData.subtitle }</h4>
+            </div>
+            <div className={styles.navArrows}>
+              <span className={styles.arrowBtn} onClick={() => changeCard(-1)}>▲</span>
+              <span className={styles.arrowBtn} onClick={() => changeCard(1)}>▼</span>
+            </div>
+          </div>
+
+          <div className={`${styles.glassCard} ${styles.emptyCard}`}>
+            <div className={styles.emptyCardContent}>
+              {heroCards[(currentIndex + 1) % heroCards.length][ lang === 'ar' && heroCards[(currentIndex + 1) % heroCards.length].title_ar ? 'title_ar' : 'title' ]}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* SERVICES SECTION (immediately after hero, no extra gap) */}
+      <div className={styles.servicesSection}>
+        <div className={styles.servicesHeader}>
+          <div className={styles.headerLeft}>
+            {/* nowrapHeader prevents breaking on small screens */}
+            <h2 className={styles.nowrapHeader}>
+              {(() => {
+                const { first, rest } = splitFirstWord(t[lang].ourServices);
+                return (
+                  <>
+                    <span className={styles.yellow}>{first}</span>
+                    {rest ? ` ${rest}` : ''}
+                  </>
+                );
+              })()}
+            </h2>
+            <p>
+              { t[lang].servicesDesc }
+            </p>
+          </div>
+        </div>
+
+        <div className={styles.servicesGrid}>
+          {serviceCards.map((service) => (
+            <div
+              key={service.id}
+              className={styles.serviceCard}
+              role="button"
+              tabIndex={0}
+              onClick={() => setSelectedService(service)}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setSelectedService(service); }}
+              style={{cursor: 'pointer'}}
+            >
+              <div className={styles.cardNumber}>{service.num}</div>
+              <img src={service.images[0]} alt={service.title} />
+              <div className={styles.cardGradientOverlay}></div>
+              <div className={styles.cardContent}>
+                <h3>{ lang === 'ar' && service.title_ar ? service.title_ar : service.title }</h3>
+                <span className={styles.arrowIcon}>↗</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    {/* REVIEWS SECTION */}
+<div className={styles.reviewsSection}>
+  <div className={styles.headerLeft}>
+    {/* ترجمة العنوان: OUR REVIEWS -> آراء عملائنا */}
+    <h2>
+      <span className={styles.yellow}>
+        {lang === 'ar' ? 'آراء' : 'OUR'}
+      </span> 
+      {lang === 'ar' ? ' عملائنا' : ' REVIEWS'}
+    </h2>
+    <p>{t[lang].reviewsDesc}</p>
+  </div>
+
+  {/* حاوية الحركة - ستظل LTR دائماً بفضل الـ CSS */}
+  <div
+    className={styles.reviewsScroller}
+    onMouseEnter={() => handleReviewHover(true)}
+    onMouseLeave={() => handleReviewHover(false)}
+  >
+    <div className={styles.reviewsWrapper} ref={reviewWrapperRef}>
+      {doubledReviews.map((review, i) => (
+        <div className={styles.reviewCard} key={`review-${i}`}>
+          <div className={styles.reviewHeader}>
+            <img src={review.avatar} alt={review.name} className={styles.avatar} />
+            <div className={styles.reviewInfo}>
+              <h4>{review.name}</h4>
+              <div className={styles.stars}>★★★★★</div>
+            </div>
+          </div>
+          <p>"{review.text}"</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+
+      {/* ABOUT / STATS / CONTACT / FOOTER */}
+      <div id="about"><ProMasterAbout lang={lang} /></div>
+      <div id="stats"><ProMasterStats lang={lang} /></div>
+      <div id="contact-form"><ProMasterContact lang={lang} /></div>
+      <div id="conta"><ProMasterFooter lang={lang} /></div>
+
+      {/* MODAL */}
+      {selectedService && (
+        <div
+          aria-modal="true"
+          role="dialog"
+          onClick={closeModal}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            background: 'rgba(0,0,0,0.95)',
+            zIndex: 2000,
+            overflowY: 'auto',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'flex-start',
+            paddingTop: '20px',
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              width: '90%',
+              maxWidth: '1200px',
+              background: '#111',
+              color: '#fff',
+              padding: 20,
+              display: 'flex',
+              flexDirection: 'column',
+              borderRadius: 8,
+            }}
+          >
+            {/* Top Buttons */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 20 }}>
+              <div style={{ display: 'flex', gap: 10 }}>
+                <Link href="/" legacyBehavior>
+                  <a style={{
+                    padding: '8px 12px',
+                    background: '#FFD700',
+                    color: '#111',
+                    borderRadius: 6,
+                    fontWeight: 'bold',
+                    textDecoration: 'none'
+                  }}>
+                    { t[lang].mainBtn }
+                  </a>
+                </Link>
+
+                <button
+                  onClick={closeModal}
+                  style={{
+                    padding: '8px 12px',
+                    borderRadius: 6,
+                    border: '1px solid #FFD700',
+                    background: '#111',
+                    color: '#FFD700',
+                    fontWeight: 'bold',
+                    cursor: 'pointer'
+                  }}
+                >
+                  { t[lang].closeBtn }
+                </button>
+              </div>
+
+              <span style={{ fontSize: 12, color: '#FFD700' }}>
+                { t[lang].serviceNumPrefix }{ selectedService.num }
+              </span>
+            </div>
+
+            {/* Title */}
+            <h1 style={{
+              textAlign: 'center',
+              color: '#FFD700',
+              marginBottom: 10
+            }}>
+              { lang === 'ar' && selectedService.title_ar ? selectedService.title_ar : selectedService.title }
+            </h1>
+
+            {/* Description */}
+            <p style={{
+              textAlign: 'center',
+              color: '#ddd',
+              fontSize: 18,
+              maxWidth: 800,
+              margin: '0 auto 40px'
+            }}>
+              { lang === 'ar' && selectedService.description_ar ? selectedService.description_ar : selectedService.description }
+            </p>
+
+            {/* Images Layout */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+              {selectedService.images.slice(1, 5).map((src, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    display: 'flex',
+                    flexDirection: idx % 2 === 0 ? 'row-reverse' : 'row',
+                    alignItems: 'center',
+                    gap: 20,
+                  }}
+                >
+                  <div style={{
+                    flex: 1,
+                    overflow: 'hidden',
+                    borderRadius: 8,
+                    aspectRatio: '16/9',
+                    background: '#333',
+                  }}>
+                    <img
+                      src={src}
+                      alt={`${selectedService.title} ${idx + 2}`}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                      }}
+                    />
+                  </div>
+
+                  <div style={{ flex: 1 }}>
+                    <h3 style={{ color: '#FFD700', marginBottom: 10 }}>
+                      { lang === 'ar' ? 'عنوان المحتوى (قريباً)' : 'Content Title (Coming Soon)' }
+                    </h3>
+                    <p style={{ color: '#ccc', lineHeight: 1.6 }}>
+                      { lang === 'ar' ? 'مساحة نص مخصصة للمحتوى المستقبلي. يمكنك إضافة شروحات، ميزات، فوائد، أو أي معلومات وصفية تتعلق بالصورة.' : 'This text area is reserved for future content. You can add explanations, features, benefits, or any descriptive information related to this image.' }
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Bottom Buttons */}
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginTop: 40,
+              gap: 10
+            }}>
+              <Link href="/services" legacyBehavior>
+                <a style={{
+                  padding: '10px 20px',
+                  borderRadius: 6,
+                  border: '2px solid #FFD700',
+                  background: '#111',
+                  color: '#FFD700',
+                  fontWeight: 'bold',
+                  textDecoration: 'none',
+                  textTransform: 'uppercase'
+                }}>
+                  { t[lang].requestService }
+                </a>
+              </Link>
+
+              <button
+                onClick={closeModal}
+                style={{
+                  padding: '10px 20px',
+                  borderRadius: 6,
+                  background: '#FFD700',
+                  color: '#111',
+                  border: 'none',
+                  fontWeight: 'bold',
+                  cursor: 'pointer',
+                  textTransform: 'uppercase'
+                }}
+              >
+                { t[lang].closeBtn }
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'use client';
+
+import React, { useState, useRef, useEffect } from 'react';
+import styles from './ProMasterServices.module.css';
+import Link from 'next/link';
+
+// dynamic imports (kept as direct imports in your original)
+import ProMasterAbout from "./ProMasterAbout.jsx";
+import ProMasterStats from "./ProMasterStats.jsx";
+import ProMasterContact from './ProMasterContact.jsx';
+import ProMasterFooter from './ProMasterFooter.jsx';
+
+const heroCards = [
+  {
+    title: 'New Product from Promaster',
+    subtitle: 'Interior Ceramic An advanced interior ceramic coating specifically engineered to protect all interior surfaces of your vehicle.',
+    title_ar: 'منتج جديد من بروماستر',
+    subtitle_ar: 'طلاء سيراميك داخلي متطور مصمم لحماية جميع الأسطح الداخلية لمركبتك.',
+    iconUrl: '/image/BOTT.png'
+  },
+  {
+    title: 'Promaster New Year Offer!',
+    subtitle: 'Celebrate the New Year with 40% OFF on all our services.A limited-time opportunity to experience premium car care standards.',
+    title_ar: 'عرض السنة الجديدة من بروماستر!',
+    subtitle_ar: 'احتفل بالعام الجديد بخصم 40% على جميع خدماتنا. فرصة محدودة لتجربة معايير العناية الفاخرة للسيارات.',
+    iconUrl: '/image/ukguk.png'
+  },
+  {
+    title: 'Complete Protection Package',
+    subtitle: 'Comprehensive protection for your vehicle, including free flatbed pickup and delivery at no additional cost.',
+    title_ar: 'باقة الحماية الكاملة',
+    subtitle_ar: 'حماية شاملة لمركبتك، تشمل استلام وتسليم على سيارة سطح مجاني بدون تكلفة إضافية.',
+    iconUrl: '/image/qqqq.png'
+  },
+];
+
+const serviceCards = [
+  /* same as your original (kept) */
+  {
+    id: 1,
+    num: '01',
+    title: 'PAINT FILM PROTECTION',
+    title_ar: 'حماية طلاء السيارة',
+    description: 'High-flexibility, ultra-durable protective films precisely molded to wrap your vehicle’s body, shielding the original paint from scratches and daily wear. They provide a strong protective barrier that keeps your car looking new for as long as possible.',
+    description_ar: 'أفلام حماية مرنة ومقاومة جداً مصممة لتغليف جسم السيارة لحماية الطلاء الأصلي من الخدوش والاهتراء اليومي. توفر حاجزًا قويًا يحافظ على مظهر سيارتك وكأنها جديدة.',
+    images: ['/image/ppf.jpg','/image/55.jpeg','/image/56.jpeg','/image/57.jpeg','/image/58.jpeg'],
+    video: '/image/vv.mp4'
+  },
+  {
+    id: 2,
+    num: '02',
+    title: 'CERAMIC GRAPHENE',
+    title_ar: 'سيراميك جرافين',
+    description: 'An advanced coating technology based on nano particles that forms an exceptionally hard protective layer. It delivers superior resistance against scratches, fading, and harsh environmental contaminants, while adding a deep, glossy shine that enhances the paint and makes cleaning easier.',
+    description_ar: 'تقنية طلاء متقدمة تعتمد على جزيئات نانو لتشكيل طبقة واقية صلبة للغاية. توفر مقاومة ممتازة للخدوش وتلاشي اللون والملوثات، وتمنح لمعانًا عميقًا يسهل تنظيفه.',
+    images: ['/image/ceramic-graphene.jpg','/image/55.jpeg','/image/56.jpeg','/image/57.jpeg','/image/58.jpeg'],
+    video: '/image/vv.mp4'
+  },
+  {
+    id: 3,
+    num: '03',
+    title: 'TIRE COAT',
+    title_ar: 'طلاء الإطارات',
+    description: 'High-performance window films that give your car a refined appearance while providing effective insulation against heat and harmful UV rays. They ensure a more comfortable driving experience and protect the interior with optimal clarity in all conditions.',
+    description_ar: 'طلاءات عالية الأداء للإطارات تعطي مظهرًا أنيقًا وتوفر مقاومة للحرارة والأشعة فوق البنفسجية الضارة. تضمن تجربة قيادة مريحة وتحمي الداخل بوضوح مثالي.',
+    images: ['/image/wheel.jpg','/image/55.jpeg','/image/56.jpeg','/image/57.jpeg','/image/58.jpeg'],
+    video: '/image/vv.mp4'
+  },
+  {
+    id: 4,
+    num: '04',
+    title: 'WINDOW CAR FILM',
+    title_ar: 'فيلم زجاج السيارة',
+    description: 'An innovative protection layer that combines rubberized coating with graphene oxide particles to create an exceptionally strong and glossy barrier. It increases surface hardness, boosts water repellency, and enhances resistance to weathering, giving your car a long-lasting, eye-catching shine.',
+    description_ar: 'طبقة حماية مبتكرة تجمع بين طلاء مطاطي وجزيئات أكسيد الجرافين لخلق حاجز قوي ولامع. تزيد من صلابة السطح وتقاوم الماء وتمنح لمعانًا طويل الأمد.',
+    images: ['/image/window.jpg','/image/55.jpeg','/image/56.jpeg','/image/57.jpeg','/image/58.jpeg'],
+    video: '/image/vv.mp4'
+  },
+  {
+    id: 5,
+    num: '05',
+    title: 'INTERIOR CHAIR',
+    title_ar: 'مقاعد داخلية',
+    description: 'Comprehensive upholstery solutions that include repairing, replacing, and upgrading your vehicle’s interior fabrics. We use premium materials and meticulous finishing to deliver enhanced comfort and a renewed, refined interior look that reflects your personal style.',
+    description_ar: 'حلول شاملة لتنجيد المقاعد تتضمن الإصلاح والاستبدال والترقية بمواد فاخرة وتشطيبات دقيقة لتوفير راحة ومظهر داخلي أنيق.',
+    images: ['/image/chair.jpg','/image/55.jpeg','/image/56.jpeg','/image/57.jpeg','/image/58.jpeg'],
+    video: '/image/vv.mp4'
+  },
+  {
+    id: 6,
+    num: '06',
+    title: 'DASH CAM',
+    title_ar: 'كاميرا داش',
+    description: 'Installation of high-definition dash cameras that record every moment of your journey. They provide added security, accurate incident documentation, and peace of mind with smart features and crystal-clear footage.',
+    description_ar: 'تركيب كاميرات داش عالية الجودة لتسجيل كل لحظة. توفر أمانًا إضافيًا وتوثيقًا دقيقًا للحوادث وراحة بال مع لقطات واضحة.',
+    images: ['/image/camera.jpg','/image/55.jpeg','/image/56.jpeg','/image/57.jpeg','/image/58.jpeg'],
+    video: '/image/vv.mp4'
+  },
+  {
+    id: 7,
+    num: '07',
+    title: 'Leather Flooring',
+    title_ar: 'أرضية جلدية',
+    description: 'Luxurious leather flooring options designed to elevate your car’s interior with a premium touch. Highly durable and easy to maintain, making them an ideal choice for enhancing both the look and protection of your car’s cabin.',
+    description_ar: 'خيارات أرضيات جلدية فاخرة لرفع مستوى داخلية سيارتك بلمسة راقية. متينة وسهلة الصيانة لحماية ومظهر أفضل.',
+    images: ['/image/matt.jpg','/image/55.jpeg','/image/56.jpeg','/image/57.jpeg','/image/58.jpeg'],
+    video: '/image/vv.mp4'
+  },
+  {
+    id: 8,
+    num: '08',
+    title: 'Interior Sound & Heat Insulation',
+    title_ar: 'عزل صوتي وحراري داخلي',
+    description: 'A complete insulation system that reduces external noise and minimizes heat transfer into the cabin. It delivers a quieter, more comfortable driving experience—especially valuable in hot weather and busy traffic environments.',
+    description_ar: 'نظام عزل كامل يقلل الضوضاء الخارجية ويقلل انتقال الحرارة إلى المقصورة. يمنح تجربة قيادة أهدأ وأكثر راحة، خاصة في الطقس الحار والزحام.',
+    images: ['/image/noise.jpg','/image/55.jpeg','/image/56.jpeg','/image/57.jpeg','/image/58.jpeg'],
+    video: '/image/vv.mp4'
+  }
+];
+
+const reviewCards = [
+  { name: 'MUAAZ ALI', text: 'خدمة ممتازه وتعامل راقي جداً والفنيين ماهرين لأبعد الحدود واهتمام ورعاية مكتملة وشغل مقنع للحد البعيد،  أوصيكم بمدير الفرع الفاتح السوداني رجل راقي وكلامه طيب واتوقع الاقبال علي الفرع بسبب ادارةالاستاذ الفاتح السوداني ياخ كلامه طيب ومحترم وما يحوجك الي اي شي والله تترك سيارتك وانت مرتاح وتستلمها وانت مبسوط ، وبعد يظل الفاتح يتابع ويهتم  معك وعشان يتأكد من الشغل يطلب منك تجي للمراجعه', avatar: '/image/ukguk.png' },
+  { name: 'amar abdalhafez', text: 'خدمة ممتازة ونوصي بهم بشدة ، والفنيين ممتازين والاخ الفاتح السوداني مسؤول الادارة تعامل ممتاز وخدمة جيدة ، واستفسرنا من باقي الخدمات لديهم شرحه وافي وملم بكل تفاصيل عمله', avatar: '/image/ukguk.png' },
+  { name: 'AB', text: 'الفاتح ممتاز ماقصر بشغله وانسان خلوق والشغل ممتاز جدا الله يعطيهم العافية', avatar: '/image/ukguk.png' },
+  { name: 'Mansour Alqahtani', text: 'ياشباب بصراحه الخدمه ممتازه والعزل الحراري واضح فيه فرق قبل وبعد وعندهم الشاب  ابو ابراهيم شاب جدا محترم وفريق عمل هادي', avatar: '/image/ukguk.png' },
+  { name: 'Anas Ali', text: 'شغلهم فن… وتركيبهم إتقان،التظليل مضبوط… وكأنه من المصنع مكان.العزل أمريكي… جودة ما لها مثيل،وسعرهم منافس… يخليك ترجع لهم كل جيل.وبعد الشغل… غسّلوا السيارة ونظفوها بإحسان،وأشكر الموظفة رزان والأستاذ عبد العليم على الاهتمام والمتابعة مع العميل بكل ود وامتنان.بصراحة… برو ماستر اسم على مسمى في كل زمان', avatar: '/image/ukguk.png' },
+];
+
+export default function ProMasterServices() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState(null);
+  
+
+  // language state: initialize from localStorage if available
+  const [lang, setLang] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('pm_lang') || 'en';
+    }
+    return 'en';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('pm_lang', lang);
+    if (typeof document !== 'undefined') {
+      document.documentElement.lang = lang === 'ar' ? 'ar' : 'en';
+    }
+  }, [lang]);
+
+  const changeCard = (direction) => {
+    setCurrentIndex(prev => {
+      let newIndex = prev + direction;
+      if (newIndex >= heroCards.length) newIndex = 0;
+      if (newIndex < 0) newIndex = heroCards.length - 1;
+      return newIndex;
+    });
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => changeCard(1), 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'Escape') setMobileMenuOpen(false);
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, []);
+
+  const activeCardData = heroCards[currentIndex];
+
+  const reviewWrapperRef = useRef(null);
+  const handleReviewHover = (isHovering) => {
+    if (reviewWrapperRef.current) {
+      reviewWrapperRef.current.style.animationPlayState = isHovering ? 'paused' : 'running';
+    }
+  };
+
+  const doubledReviews = [...reviewCards, ...reviewCards];
+  const closeModal = () => setSelectedService(null);
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'Escape') closeModal();
+    };
+    document.addEventListener('keydown', onKey);
+    document.body.style.overflow = selectedService ? 'hidden' : '';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, [selectedService]);
+
+  // translations for static texts
+  const t = {
+    en: {
+      main: 'MAIN',
+      gallery: 'GALLERY',
+      about: 'ABOUT US',
+      store: 'STORE',
+      cert: 'CERTIFICATION',
+      pricing: 'PRICING',
+      contact: 'CONTACT US',
+      goPrimary: 'Go Confidence',
+      years: '12 Years Of Expertise',
+      sub1: 'To Keep Your Car Protected',
+      sub2: 'At The Highest Levels',
+      ourServices: 'OUR SERVICES',
+      servicesDesc: `At PROMASTER, we go beyond car washing — we provide comprehensive automotive care
+              designed to protect, enhance, and maintain your vehicle's performance and appearance.`,
+      reviewsDesc: `At PROMASTER, we go beyond car washing — we provide comprehensive automotive care
+              designed to protect, enhance, and maintain your vehicle's performance and appearance.`,
+      mainBtn: 'Main',
+      closeBtn: 'Close',
+      requestService: 'Request service',
+      serviceNumPrefix: 'Service #'
+    },
+    ar: {
+      main: 'الرئيسية',
+      gallery: 'المعرض',
+      about: 'عن الشركة',
+      store: 'المتجر',
+      cert: 'الشهادات',
+      pricing: 'الأسعار',
+      contact: 'تواصل معنا',
+      goPrimary: 'انطلق بثقة',
+      years: '12 سنة من الخبرة',
+      sub1: 'للحفاظ على سيارتك محمية',
+      sub2: 'بأعلى المعايير',
+      ourServices: 'خدماتنا',
+      servicesDesc: `في بروماستر، نتخطى غسيل السيارات — نوفر رعاية شاملة للسيارات
+              مصممة لحماية وتحسين والمحافظة على أداء ومظهر مركبتك.`,
+      reviewsDesc: `في بروماستر، نتخطى غسيل السيارات — نوفر رعاية شاملة للسيارات
+              مصممة لحماية وتحسين والمحافظة على أداء ومظهر مركبتك.`,
+      mainBtn: 'الرئيسية',
+      closeBtn: 'إغلاق',
+      requestService: 'طلب الخدمة',
+      serviceNumPrefix: 'الخدمة #'
+    }
+  };
+
+  // helper to split first word (stable even if only one word)
+  const splitFirstWord = (str) => {
+    const parts = String(str).split(' ');
+    const first = parts.shift();
+    const rest = parts.join(' ');
+    return { first, rest };
+  };
+
+  return (
+    <div className={`${styles.wrapper} ${lang === 'ar' ? styles.rtl : ''}`} dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+      {/* HERO SECTION */}
+      <div className={styles.heroSection}>
+        {/* NAVBAR */}
+        <nav className={styles.navbar}>
+          <div className={styles.logo}><img src="/image/llogo.webp" alt="PROMASTER" /></div>
+
+          <ul className={styles.navLinks}>
+            <li><a href="#" className={styles.active}>{t[lang].main}</a></li>
+            <li><a href="/gallery">{t[lang].gallery}</a></li>
+            <li><a href="#about">{t[lang].about}</a></li>
+            <li><a href="/store" >{t[lang].store}</a></li>
+            <li><a href="/certificates" >{t[lang].cert}</a></li>
+            <li><a href="/pricing">{t[lang].pricing}</a></li>
+          </ul>
+
+          <div className={styles.contactLink}>
+            <a href="#contact-form" onClick={(e) => { e.preventDefault(); const contactSection = document.getElementById('contact-form'); if (contactSection) contactSection.scrollIntoView({ behavior: 'smooth' }); }}>{t[lang].contact}</a>
+          </div>
+
+          {/* language toggle */}
+          <button
+            className={styles.langToggle}
+            onClick={() => setLang(prev => prev === 'en' ? 'ar' : 'en')}
+            aria-label="Toggle language"
+            title={lang === 'en' ? 'العربية' : 'English'}
+          >
+            {lang === 'en' ? 'ع' : 'EN'}
+          </button>
+
+          <button
+            className={styles.mobileMenuButton}
+            onClick={() => setMobileMenuOpen(true)}
+            aria-label="Open menu"
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+        </nav>
+
+        {/* SIDE MENU OVERLAY */}
+        {mobileMenuOpen && (
+          <div
+            className={styles.sideMenuOverlay}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <div className={styles.sideMenu} onClick={(e) => e.stopPropagation()}>
+              <button className={styles.sideMenuClose} onClick={() => setMobileMenuOpen(false)} aria-label="Close menu">×</button>
+
+              <ul>
+                <li><a href="#" className={styles.active}>{t[lang].main}</a></li>
+                <li><a href="/gallery">{t[lang].gallery}</a></li>
+                <li><a href="#about" onClick={() => setMobileMenuOpen(false)}>{t[lang].about}</a></li>
+                <li><a href="/store" onClick={() => setMobileMenuOpen(false)}>{t[lang].store}</a></li>
+                <li><a href="/certificates" onClick={() => setMobileMenuOpen(false)}>{t[lang].cert}</a></li>
+                <li><a href="/pricing" onClick={() => setMobileMenuOpen(false)}>{t[lang].pricing}</a></li>
+                <li>
+                  <a href="#contact-form" onClick={(e) => {
+                     e.preventDefault();
+                     const contactSection = document.getElementById('contact-form');
+                     if (contactSection) contactSection.scrollIntoView({ behavior: 'smooth' });
+                     setMobileMenuOpen(false);
+                  }}>{t[lang].contact}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        )}
+
+        {/* HERO TEXT */}
+        <div className={styles.heroText}>
+          <h1 className={styles.goPrimary}>
+            {t[lang].goPrimary}
+            <span className={styles.inlineDots} aria-hidden="true">
+              <span className={styles.dot}>•</span><span className={styles.dot}>•</span><span className={styles.dot}>•</span>
+            </span>
+          </h1>
+
+          <h1 className={styles.whiteLarge}>{t[lang].years}</h1>
+
+          <h1 className={styles.whiteLargeSub}>
+            <span className={styles.yellowText}>{t[lang].sub1}</span>
+            <span className={styles.yellowText}>{t[lang].sub2}</span>
+          </h1>
+        </div>
+
+        {/* HERO VIDEO (background) */}
+        <div className={styles.heroVideoWrapper} aria-hidden="true">
+          <video
+            className={styles.heroVideoDesktop}
+            src="/image/carrrrrr.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+          />
+          <video
+            className={styles.heroVideoMobile}
+            src="/image/ccarr.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+          />
+        </div>
+
+        {/* slider cards (positioned over video at right-bottom) */}
+        <div className={styles.sliderStackContainer}>
+          <div className={`${styles.glassCard} ${styles.emptyCard}`}>
+            <div className={styles.emptyCardContent}>
+              {heroCards[(currentIndex - 1 + heroCards.length) % heroCards.length][ lang === 'ar' && heroCards[(currentIndex - 1 + heroCards.length) % heroCards.length].title_ar ? 'title_ar' : 'title' ]}
+            </div>
+          </div>
+
+          <div className={`${styles.glassCard} ${styles.activeCard}`}>
+            <div className={styles.cardIcon}><img src={activeCardData.iconUrl} alt="icon" /></div>
+            <div className={styles.cardText} key={currentIndex}>
+              <h4>{ lang === 'ar' && activeCardData.title_ar ? activeCardData.title_ar : activeCardData.title }</h4>
+              <h4>{ lang === 'ar' && activeCardData.subtitle_ar ? activeCardData.subtitle_ar : activeCardData.subtitle }</h4>
+            </div>
+            <div className={styles.navArrows}>
+              <span className={styles.arrowBtn} onClick={() => changeCard(-1)}>▲</span>
+              <span className={styles.arrowBtn} onClick={() => changeCard(1)}>▼</span>
+            </div>
+          </div>
+
+          <div className={`${styles.glassCard} ${styles.emptyCard}`}>
+            <div className={styles.emptyCardContent}>
+              {heroCards[(currentIndex + 1) % heroCards.length][ lang === 'ar' && heroCards[(currentIndex + 1) % heroCards.length].title_ar ? 'title_ar' : 'title' ]}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* SERVICES SECTION (immediately after hero, no extra gap) */}
+      <div className={styles.servicesSection}>
+        <div className={styles.servicesHeader}>
+          <div className={styles.headerLeft}>
+            {/* nowrapHeader prevents breaking on small screens */}
+            <h2 className={styles.nowrapHeader}>
+              {(() => {
+                const { first, rest } = splitFirstWord(t[lang].ourServices);
+                return (
+                  <>
+                    <span className={styles.yellow}>{first}</span>
+                    {rest ? ` ${rest}` : ''}
+                  </>
+                );
+              })()}
+            </h2>
+            <p>
+              { t[lang].servicesDesc }
+            </p>
+          </div>
+        </div>
+
+        <div className={styles.servicesGrid}>
+          {serviceCards.map((service) => (
+            <div
+              key={service.id}
+              className={styles.serviceCard}
+              role="button"
+              tabIndex={0}
+              onClick={() => setSelectedService(service)}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setSelectedService(service); }}
+              style={{cursor: 'pointer'}}
+            >
+              <div className={styles.cardNumber}>{service.num}</div>
+              <img src={service.images[0]} alt={service.title} />
+              <div className={styles.cardGradientOverlay}></div>
+              <div className={styles.cardContent}>
+                <h3>{ lang === 'ar' && service.title_ar ? service.title_ar : service.title }</h3>
+                <span className={styles.arrowIcon}>↗</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    {/* REVIEWS SECTION */}
+<div className={styles.reviewsSection}>
+  <div className={styles.headerLeft}>
+    {/* ترجمة العنوان: OUR REVIEWS -> آراء عملائنا */}
+    <h2>
+      <span className={styles.yellow}>
+        {lang === 'ar' ? 'آراء' : 'OUR'}
+      </span> 
+      {lang === 'ar' ? ' عملائنا' : ' REVIEWS'}
+    </h2>
+    <p>{t[lang].reviewsDesc}</p>
+  </div>
+
+  {/* حاوية الحركة - ستظل LTR دائماً بفضل الـ CSS */}
+  <div
+    className={styles.reviewsScroller}
+    onMouseEnter={() => handleReviewHover(true)}
+    onMouseLeave={() => handleReviewHover(false)}
+  >
+    <div className={styles.reviewsWrapper} ref={reviewWrapperRef}>
+      {doubledReviews.map((review, i) => (
+        <div className={styles.reviewCard} key={`review-${i}`}>
+          <div className={styles.reviewHeader}>
+            <img src={review.avatar} alt={review.name} className={styles.avatar} />
+            <div className={styles.reviewInfo}>
+              <h4>{review.name}</h4>
+              <div className={styles.stars}>★★★★★</div>
+            </div>
+          </div>
+          <p>"{review.text}"</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+
+      {/* ABOUT / STATS / CONTACT / FOOTER */}
+      <div id="about"><ProMasterAbout lang={lang} /></div>
+      <div id="stats"><ProMasterStats lang={lang} /></div>
+      <div id="contact-form"><ProMasterContact lang={lang} /></div>
+      <div id="conta"><ProMasterFooter lang={lang} /></div>
+
+      {/* MODAL */}
+      {selectedService && (
+        <div
+          aria-modal="true"
+          role="dialog"
+          onClick={closeModal}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            background: 'rgba(0,0,0,0.95)',
+            zIndex: 2000,
+            overflowY: 'auto',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'flex-start',
+            paddingTop: '20px',
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              width: '90%',
+              maxWidth: '1200px',
+              background: '#111',
+              color: '#fff',
+              padding: 20,
+              display: 'flex',
+              flexDirection: 'column',
+              borderRadius: 8,
+            }}
+          >
+            {/* Top Buttons */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 20 }}>
+              <div style={{ display: 'flex', gap: 10 }}>
+                <Link href="/" legacyBehavior>
+                  <a style={{
+                    padding: '8px 12px',
+                    background: '#FFD700',
+                    color: '#111',
+                    borderRadius: 6,
+                    fontWeight: 'bold',
+                    textDecoration: 'none'
+                  }}>
+                    { t[lang].mainBtn }
+                  </a>
+                </Link>
+
+                <button
+                  onClick={closeModal}
+                  style={{
+                    padding: '8px 12px',
+                    borderRadius: 6,
+                    border: '1px solid #FFD700',
+                    background: '#111',
+                    color: '#FFD700',
+                    fontWeight: 'bold',
+                    cursor: 'pointer'
+                  }}
+                >
+                  { t[lang].closeBtn }
+                </button>
+              </div>
+
+              <span style={{ fontSize: 12, color: '#FFD700' }}>
+                { t[lang].serviceNumPrefix }{ selectedService.num }
+              </span>
+            </div>
+
+            {/* Title */}
+            <h1 style={{
+              textAlign: 'center',
+              color: '#FFD700',
+              marginBottom: 10
+            }}>
+              { lang === 'ar' && selectedService.title_ar ? selectedService.title_ar : selectedService.title }
+            </h1>
+
+            {/* Description */}
+            <p style={{
+              textAlign: 'center',
+              color: '#ddd',
+              fontSize: 18,
+              maxWidth: 800,
+              margin: '0 auto 40px'
+            }}>
+              { lang === 'ar' && selectedService.description_ar ? selectedService.description_ar : selectedService.description }
+            </p>
+
+            {/* Images Layout */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+              {selectedService.images.slice(1, 5).map((src, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    display: 'flex',
+                    flexDirection: idx % 2 === 0 ? 'row-reverse' : 'row',
+                    alignItems: 'center',
+                    gap: 20,
+                  }}
+                >
+                  <div style={{
+                    flex: 1,
+                    overflow: 'hidden',
+                    borderRadius: 8,
+                    aspectRatio: '16/9',
+                    background: '#333',
+                  }}>
+                    <img
+                      src={src}
+                      alt={`${selectedService.title} ${idx + 2}`}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                      }}
+                    />
+                  </div>
+
+                  <div style={{ flex: 1 }}>
+                    <h3 style={{ color: '#FFD700', marginBottom: 10 }}>
+                      { lang === 'ar' ? 'عنوان المحتوى (قريباً)' : 'Content Title (Coming Soon)' }
+                    </h3>
+                    <p style={{ color: '#ccc', lineHeight: 1.6 }}>
+                      { lang === 'ar' ? 'مساحة نص مخصصة للمحتوى المستقبلي. يمكنك إضافة شروحات، ميزات، فوائد، أو أي معلومات وصفية تتعلق بالصورة.' : 'This text area is reserved for future content. You can add explanations, features, benefits, or any descriptive information related to this image.' }
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Bottom Buttons */}
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginTop: 40,
+              gap: 10
+            }}>
+              <Link href="/services" legacyBehavior>
+                <a style={{
+                  padding: '10px 20px',
+                  borderRadius: 6,
+                  border: '2px solid #FFD700',
+                  background: '#111',
+                  color: '#FFD700',
+                  fontWeight: 'bold',
+                  textDecoration: 'none',
+                  textTransform: 'uppercase'
+                }}>
+                  { t[lang].requestService }
+                </a>
+              </Link>
+
+              <button
+                onClick={closeModal}
+                style={{
+                  padding: '10px 20px',
+                  borderRadius: 6,
+                  background: '#FFD700',
+                  color: '#111',
+                  border: 'none',
+                  fontWeight: 'bold',
+                  cursor: 'pointer',
+                  textTransform: 'uppercase'
+                }}
+              >
+                { t[lang].closeBtn }
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

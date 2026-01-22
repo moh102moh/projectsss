@@ -1,0 +1,14 @@
+/* global.css */
+
+/* «” Ì—«œ «·Œÿ „‰ Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;700&display=swap');
+
+/* «·„ €Ì—«  */
+:root {
+  --font-main: "IBM Plex Sans Arabic", sans-serif;
+}
+
+/*  ÿ»Ìﬁ «·Œÿ ›ﬁÿ */
+body, input, button, textarea, select {
+  font-family: var(--font-main) !important;
+}

@@ -1,0 +1,572 @@
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('/fonts/IBMPlexSansArabic-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SST';
+  src: url('/fonts/SST-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+.section,
+.section * {
+  font-family: 'SST', sans-serif;
+  font-weight: 400;
+  direction: rtl;
+}
+
+
+.section h1,
+.section h2,
+.section h3,
+.section h4,
+.section h5,
+.section h6 {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 700;
+}
+
+.section {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #231f20;
+}
+.fixedWrapper {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  pointer-events: none;
+}
+
+
+.bgVideo {
+  position: absolute;
+   
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  transition: opacity 0.18s linear;
+}
+
+
+.videoTextWrapper {
+   
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+
+.textLeft,
+.textRight {
+  position: absolute;
+  top: 50%;
+  width: 35%;
+  color: white;
+  transform: translateY(-50%);
+}
+
+.textLeft {
+  left: 60%;
+  text-align: right;
+}
+
+.textRight {
+  right: 60%;
+  text-align: left;
+}
+
+.textLeft h3,
+.textRight h3 {
+  color: #3fa0ba;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  direction: rtl;
+}
+
+.textLeft p,
+.textRight p {
+  color: #fff;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  direction: rtl;
+}
+
+
+.imageStackWrapper {
+  position: absolute;
+  inset: 8% 10%;
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+
+.imageFull {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: clip-path 0.18s linear, opacity 0.18s linear;
+  border-radius: 12px;
+  will-change: clip-path, opacity;
+  z-index: 1;
+}
+
+
+.timelineLine {
+  position: absolute;
+  height: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 6px;
+  z-index: 4;
+  pointer-events: none;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.45) inset;
+}
+
+.card {
+  position: relative;
+  
+  margin:50px;
+  width: 350px;
+  height: 200px;
+  border-radius: 24px;
+  background: linear-gradient(145deg, #030303, #2e2e2e);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  flex-shrink: 0;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.cardContent {
+  text-align: center;
+  padding: 30px 20px;
+  opacity: 0.95;
+  transform: translateY(5px);
+  
+}
+
+.cardContent h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+.cardContent p {
+  font-size: 0.8rem;
+  line-height: 1.1;
+  opacity: 0.85;
+}
+
+.cardScroller {
+  position: absolute;
+  top: 50%; 
+  transform: translateY(-50%); 
+  width: max-content;
+  display: flex;
+  align-items: center;
+  z-index: 6;
+  overflow: visible;
+  pointer-events: none;
+  transform-origin: left center;
+  will-change: transform, opacity;
+}
+
+
+.cardWrapperScroll {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.horizontalDividerScroll {
+  width: 110px;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  margin-left: 18px;
+  margin-right: 18px;
+  border-radius: 2px;
+  pointer-events: none;
+  align-self: center;
+}
+
+
+.cardSquareScroll {
+  width: 320px;
+  height: 200px;
+  background: rgba(10, 10, 10, 0.92);
+  color: #fff;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+  transition: transform 0.25s ease, box-shadow 0.2s ease, background 0.2s ease;
+  pointer-events: auto;
+}
+
+
+.cardActive {
+  background: rgba(18, 18, 18, 0.99);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.55);
+  transform-origin: center center;
+}
+
+
+.cardContentScroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+}
+.cardContentScroll h4 { font-size: 1rem; margin: 6px 0 4px; }
+.cardContentScroll p { font-size: 0.82rem; margin: 0; opacity: 0.95; }
+
+
+.finalFormBox {
+  position: absolute;
+  inset: 8% 10%;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 25px rgba(240, 90, 43, 0.18);
+  pointer-events: auto;
+  flex-direction: column;
+  padding: 32px;
+}
+
+
+.finalFormInner {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.finalFormInner input,
+.finalFormInner select,
+.finalFormInner button {
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.finalFormInner input,
+.finalFormInner select {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  outline: none;
+}
+
+.finalFormInner input::placeholder {
+  color: #ccc;
+}
+
+.finalFormInner select {
+  cursor: pointer;
+  background-image: linear-gradient(to right, #f05a2b, #f05a2b);
+  background-size: 0 2px;
+  background-position: bottom left;
+  background-repeat: no-repeat;
+}
+
+.finalFormInner select:hover,
+.finalFormInner input:focus {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.finalFormInner option {
+  color: #000;
+}
+
+.finalFormInner button {
+  background: #f05a2b;
+  color: white;
+  cursor: pointer;
+}
+
+.finalFormInner button:hover {
+  background: #ff6b35;
+  transform: translateY(-3px);
+}
+
+
+.formStatusPopup {
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  transform: translateX(-50%);
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 1200;
+  z-index: 12;
+  pointer-events: none;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+ 
+  
+}
+.formStatusPopup.success {
+  background: white;
+  width: 250px;
+  height: 50px;
+  padding: auto;
+  color:rgba(34,197,94,0.95);
+}
+.formStatusPopup.error {
+  background: rgba(239,68,68,0.95);
+  color: white;
+}
+
+
+@media (max-width: 1024px) {
+.videoTextWrapper {
+  display: flex;
+  flex-direction: column;
+   align-items: center; 
+    justify-content: flex-start; 
+    padding-top: 20%; 
+     gap:5px
+}
+
+
+
+    .textLeft,
+  .textRight {
+    position: relative;
+    left: auto;
+    right: auto;
+    width: 90%;
+    padding: 2%;
+    text-align: center; 
+    transform: none;
+     top: 20%;
+  }
+
+
+@keyframes slideInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .textLeft h3,
+  .textRight h3 {
+    font-size: 1.8rem;
+  }
+
+  .textLeft p,
+  .textRight p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+
+  .bgVideo {
+    object-fit: contain;
+  }
+  .imageStackWrapper {
+    inset: 5% 0;
+    width: 100vw;
+    height: auto;
+    transform: scale(1.25); 
+    top: 10%; 
+  }
+   .imageFull { background-size: contain; background-position: center center; background-repeat: no-repeat; }
+
+  .cardScroller {
+    top: 43%;
+  }
+
+  .card {
+    width: 260px;
+    height: 180px;
+  }
+
+  .cardContent h3 {
+    font-size: 1.2rem;
+  }
+
+  .cardContent p {
+    font-size: 0.9rem;
+  }
+}
+
+
+@media (max-width: 768px) {
+.videoTextWrapper {
+  display: flex;
+  flex-direction: column;
+   align-items: center; 
+    justify-content: flex-start; 
+    padding-top: 20%; 
+      gap:5px
+}
+
+@keyframes slideInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+    .textLeft,
+  .textRight {
+    position: relative;
+    left: auto;
+    right: auto;
+    width: 90%;
+    padding: 2%;
+    text-align: center;
+    transform: none;
+     top: 20%;
+  }
+
+
+  .textLeft h3,
+  .textRight h3 {
+    font-size: 1.4rem;
+  }
+
+  .textLeft p,
+  .textRight p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .bgVideo {
+    object-fit: contain;
+    height: 100vh;
+  }
+
+
+  .imageStackWrapper {
+    inset: 3% 0;
+    width: 100vw;
+    height: auto;
+    transform: scale(1.35); 
+    top: 10%; 
+  }
+ .imageFull { background-size: contain; background-position: center center; background-repeat: no-repeat; }
+
+
+  .cardScroller {
+    top: 46%;
+  }
+
+  .card {
+    width: 200px;
+    height: 160px;
+  }
+
+  .cardContent h3 {
+    font-size: 1rem;
+  }
+
+  .cardContent p {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+}
+
+
+@media (max-width: 480px) {
+ .videoTextWrapper {
+  display: flex;
+  flex-direction: column;
+    align-items: center; 
+    justify-content: flex-start; 
+    padding-top: 20%; 
+      gap:5px
+}
+ 
+
+@keyframes slideInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .textLeft,
+  .textRight {
+    position: relative;
+    left: auto;
+    right: auto;
+    width: 90%;
+    padding: 2%;
+    text-align: center;
+    transform: none;
+     top: 20%;
+  }
+
+  .textLeft h3,
+  .textRight h3 {
+    font-size: 1.2rem;
+  }
+
+  .textLeft p,
+  .textRight p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  .textLeft { padding-right: 6%; }
+  .textRight { padding-left: 6%; }
+
+  .bgVideo {
+    object-fit: cover;
+    height: 100vh;
+  }
+
+ .imageStackWrapper {
+    inset: 2% 0;
+    width: 100vw;
+    height: auto;
+    transform: scale(1.45); 
+    top: 10%; 
+  }
+   .imageFull { background-size: contain; background-position: center center; background-repeat: no-repeat; }
+  .cardScroller {
+    top: 48%;
+  }
+
+  .card {
+    width: 160px;
+    height: 140px;
+  }
+
+  .cardContent {
+    padding: 20px 10px;
+  }
+
+  .cardContent h3 {
+    font-size: 0.95rem;
+  }
+
+  .cardContent p {
+    font-size: 0.75rem;
+  }
+}

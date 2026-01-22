@@ -1,0 +1,74 @@
+.footerSection {
+  width: 100%;
+  height: 90vh; /* 🔹 صار أطول من الشاشة */
+  background: #000;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  padding-top: 10vh; /* 🔹 نزل المحتوى شوي لتحت */
+  overflow: hidden;
+}
+
+.footerContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+}
+
+.footerTitle {
+  font-size: 14rem; /* 🔹 كبرنا الكلمة كتير */
+  font-weight: 900;
+  letter-spacing: 10px;
+  text-transform: uppercase;
+  margin-bottom: 4rem;
+  background: linear-gradient(90deg, #ff6600, #ff0055, #00c3ff, #ff6600);
+  background-size: 400%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradientMove 8s infinite linear;
+  line-height: 0.9;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 100%;
+  }
+}
+
+.footerLinks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 4rem;
+  margin-bottom: 3rem;
+}
+
+.footerLinks a {
+  color: #aaa;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+}
+
+.footerLinks a:hover {
+  color: #ff6600;
+}
+
+.footerCopy {
+  font-size: 1rem;
+  color: #666;
+  margin-top: auto;
+  padding-bottom: 2rem;
+}

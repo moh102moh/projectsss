@@ -1,0 +1,164 @@
+/* components/ProMasterPricing.module.css */
+
+.container {
+  width: 90%;
+  max-width: 1400px; /* لضمان عدم توسع المحتوى بشكل مبالغ فيه في الشاشات الكبيرة */
+  margin: 0 auto;
+  padding: 80px 0;
+  color: white;
+  text-align: center;
+}
+
+/* --- العنوان الرئيسي --- */
+.header {
+  margin-bottom: 60px;
+}
+
+.title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  line-height: 1.1;
+}
+
+.title span {
+  color: #FFD700; /* اللون الأصفر الذهبي */
+  margin-right: 15px;
+}
+
+.desc {
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #cccccc;
+  opacity: 0.9;
+}
+
+/* --- شبكة الكروت (3 في الصف) --- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 أعمدة متساوية */
+  gap: 30px; /* مسافة بين الكروت */
+  justify-content: center;
+}
+
+/* --- تصميم الكرت --- */
+.card {
+  background-color: transparent; /* خلفية شفافة كما في الصورة */
+  border: 1px solid #444; /* حدود رمادية خفيفة */
+  border-radius: 10px;
+  padding: 40px 30px;
+  text-align: center;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 500px; /* لتوحيد الطول */
+}
+
+.card:hover {
+  border-color: #FFD700; /* عند التمرير يصبح الإطار أصفر */
+  transform: translateY(-5px);
+  background-color: rgba(255, 215, 0, 0.02); /* خلفية صفراء خفيفة جداً عند التمرير */
+}
+
+.cardTitle {
+  color: #FFD700;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.cardPrice {
+  color: #FFD700;
+  font-size: 1.1rem;
+  margin-bottom: 40px;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+/* قائمة المميزات */
+.featuresList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 40px 0;
+  text-align: left; /* المحتوى محاذاة لليسار كما في الصورة */
+  flex-grow: 1; /* لدفع الزر للأسفل */
+}
+
+.featuresList li {
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  color: #fff;
+  line-height: 1.4;
+  display: flex;
+  align-items: flex-start;
+}
+
+.featuresList li::before {
+  content: "-";
+  margin-right: 10px;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* --- زر الحجز --- */
+.bookBtn {
+  background-color: #e0e0e0; /* لون أبيض مائل للرمادي */
+  color: #333;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 200px;
+  margin: 0 auto;
+  transition: 0.3s;
+}
+
+.bookBtn:hover {
+  background-color: #fff;
+  transform: scale(1.02);
+}
+
+.arrowIcon {
+  color: #FFD700;
+  font-size: 1.2rem;
+  background: transparent;
+  border: 2px solid #FFD700; /* دائرة حول السهم */
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+}
+
+/* --- استجابة الشاشات (Responsive) --- */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr); /* كرتين في الصف للأجهزة اللوحية */
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr; /* كرت واحد للموبايل */
+  }
+  
+  .title {
+    font-size: 2.5rem;
+  }
+  
+  .card {
+    min-height: auto;
+  }
+}

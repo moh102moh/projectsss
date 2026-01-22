@@ -1,0 +1,25 @@
+self["webpackHotUpdatepandemic_globe"]("main",{
+
+/***/ "./src/files/my-airports.json":
+/*!************************************!*\
+  !*** ./src/files/my-airports.json ***!
+  \************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse("{\"type\":\"AirportsCollection\",\"airports\":[{\"city\":\"Riyadh\",\"text\":\"rimal\",\"lat\":24.7136,\"lng\":46.6753,\"size\":0.5},{\"text\":\"BKK\",\"size\":1,\"country\":\"Thailand\",\"city\":\"\",\"lat\":\"13.6900\",\"lng\":\"100.7501\"}]}");
+
+/***/ })
+
+},
+/******/ function(__webpack_require__) { // webpackRuntimeModules
+/******/ 	"use strict";
+/******/ 
+/******/ 	/* webpack/runtime/getFullHash */
+/******/ 	(() => {
+/******/ 		__webpack_require__.h = () => "0c8a27a911ce82281d4d"
+/******/ 	})();
+/******/ 	
+/******/ }
+);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly9wYW5kZW1pYy1nbG9iZS93ZWJwYWNrL3J1bnRpbWUvZ2V0RnVsbEhhc2giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7OztXQUFBLG9EIiwiZmlsZSI6Im1haW4uNmMxYmEwODM5MWFmZTU4YjhjZDkuaG90LXVwZGF0ZS5qcyIsInNvdXJjZXNDb250ZW50IjpbIl9fd2VicGFja19yZXF1aXJlX18uaCA9ICgpID0+IFwiMGM4YTI3YTkxMWNlODIyODFkNGRcIiJdLCJzb3VyY2VSb290IjoiIn0=

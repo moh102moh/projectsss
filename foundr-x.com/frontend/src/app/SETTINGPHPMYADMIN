@@ -1,0 +1,6 @@
+CREATE USER 'adminA'@'localhost' IDENTIFIED BY 'StrongPass!102';
+
+CREATE USER 'single_admin'@'%' IDENTIFIED BY 'StrongPass!234';
+GRANT ALL PRIVILEGES ON *.* TO 'adminA'@'localhost' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'adminA'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;

@@ -1,0 +1,49 @@
+
+.form input,
+.form select,
+.form textarea {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.form button {
+  background-color: #1e88e5;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 2rem;
+  direction: rtl;
+  text-align: right;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+
+  
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.phoneContainer {
+  display: flex;
+  gap: 10px; 
+  flex-direction: row-reverse; 
+  align-items: center;
+}
+
+.phoneContainer select,
+.phoneContainer input {
+  flex: 1;
+  padding: 8px;
+  font-size: 1rem;
+}
+

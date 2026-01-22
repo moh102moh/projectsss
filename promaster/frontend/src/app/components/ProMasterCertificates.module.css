@@ -1,0 +1,291 @@
+:root {
+  --accent: #f8d100;
+}
+
+/* عام */
+.container {
+  width: 90%;
+  margin: auto;
+  padding: 60px 0;
+  color: white;
+  text-align: center;
+}
+
+.title {
+  font-size: 55px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.title span {
+  color: var(--accent);
+}
+
+.desc {
+  max-width: 700px;
+  margin: 0 auto 50px auto;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #ccc;
+}
+
+/* شبكة الصور */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+  
+.card {
+  position: relative;
+  border: 2px solid transparent; /* يبقى شفاف حتى التفعيل */
+  padding: 10px;
+  border-radius: 12px;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+  cursor: pointer;
+  background: #0c0c0c;
+  overflow: visible;
+}
+
+/* الصورة داخل الكارد */
+.card img {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 10px;                  
+  left: 10px;
+  right: 10px;      /* سماكة الشريط العلوي */
+  height: 4px;                
+  background: var(--accent);
+  border-radius: 6px;
+  transition: all 300ms ease;
+  z-index: 4;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 4px;                   
+  height: calc(50% - 10px);    
+  background: var(--accent);
+  border-radius: 6px;
+  transition: height 300ms ease, top 300ms ease;
+  z-index: 4;
+}
+
+.rightHalf {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 4px;
+  height: calc(50% - 10px);
+  background: var(--accent);
+  border-radius: 6px;
+  transition: height 300ms ease, top 300ms ease;
+  z-index: 4;
+}
+
+
+.bottomLine {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  width: 0;
+  height: 4px;
+  background: var(--accent);
+  border-radius: 6px;
+  transition: left 300ms ease, width 300ms ease;
+  z-index: 4;
+}
+
+/* ------------ حالة التفعيل: نكمل الإطار بالكامل ------------ */
+.activeCard {
+  transform: scale(1.05);
+  border-color: transparent !important;
+}
+
+
+/* الشريط العلوي يظل بداخلي (already full width due to left/right 10px) */
+/* الشريط اليسار يمتد لأسفل ليكمل الإطار */
+.activeCard::after {
+  height: calc(100% - 20px); /* يملأ الارتفاع الداخلي بالكامل */
+  top: 10px;
+}
+
+/* الشريط اليمين يمتد لأسفل ليكمل الإطار */
+.activeCard .rightHalf {
+  height: calc(100% - 20px);
+  top: 10px;
+}
+
+/* الشريط السفلي يتوسع من المنتصف إلى اليسار واليمين */
+.activeCard .bottomLine {
+  left: 10px;
+  width: calc(100% - 20px);
+}
+
+/* لمسة جمالية: ظل خفيف على العناصر المضيئة */
+.activeCard::before,
+.activeCard::after,
+.activeCard .rightHalf,
+.activeCard .bottomLine {
+  box-shadow: 0 6px 18px rgba(248,209,0,0.12);
+}
+
+
+.card:hover::before,
+.card:hover::after,
+.card:hover .rightHalf {
+  filter: drop-shadow(0 4px 12px rgba(248,209,0,0.08));
+}
+
+
+.popupBox {
+  background: #111;
+  padding: 25px;
+  margin-top: 20px;
+  border-radius: 12px;
+  border: 1px solid #444;
+  animation: fadeIn 0.3s ease;
+}
+
+.popupBox h2 {
+  color: var(--accent);
+  margin-bottom: 10px;
+  font-size: 28px;
+}
+
+.popupBox p {
+  font-size: 17px;
+  color: #ddd;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .title {
+    font-size: 48px;
+  }
+
+  .desc {
+    font-size: 16px;
+    max-width: 600px;
+  }
+
+  .popupBox h2 {
+    font-size: 24px;
+  }
+
+  .popupBox p {
+    font-size: 16px;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+
+  .title {
+    font-size: 38px;
+  }
+
+  .desc {
+    font-size: 15px;
+    max-width: 90%;
+  }
+
+  .popupBox h2 {
+    font-size: 22px;
+  }
+
+  .popupBox p {
+    font-size: 15px;
+  }
+
+  .card {
+    padding: 8px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .desc {
+    font-size: 14px;
+  }
+
+  .popupBox h2 {
+    font-size: 20px;
+  }
+
+  .popupBox p {
+    font-size: 14px;
+  }
+
+  .card {
+    padding: 6px;
+  }
+}
+.carouselWrapper :global(.swiper-button-next), .carouselWrapper :global(.swiper-button-prev) { color: #000000 !important; background-color: var(--accent); width: 45px; height: 45px; border-radius: 50%; transform: scale(0.8); z-index: 10; }
+
+.carouselWrapper :global(.swiper-button-next::after), .carouselWrapper :global(.swiper-button-prev::after) { font-size: 20px; font-weight: 900; }
+
+
+
+
+@media (max-width: 1200px) {
+  .card img {
+    max-height: 450px; 
+  }
+}
+
+
+@media (max-width: 768px) {
+  .card img {
+    max-height: 300px; 
+  }
+}
+
+
+@media (max-width: 480px) {
+  .card img {
+    max-height: 250px; 
+  }
+}

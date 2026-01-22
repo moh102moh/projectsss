@@ -1,0 +1,322 @@
+/* === Fonts usage inside the contact form === */
+
+/* الخط العام داخل الفورم */
+.formBox, 
+.formBox input, 
+.formBox textarea, 
+.formBox select {
+  font-family: "SST", sans-serif;
+}
+
+/* العناوين داخل الفورم */
+.formBox h2,
+.formBox label {
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.contactSection::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #333;
+  opacity: 0.7;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+
+
+.contactSection {
+  width: 100%;
+  min-height: 55vh;
+  background-color: #231f20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 10px;
+ 
+  overflow: hidden;
+  direction: rtl;
+    position: relative;
+}
+
+
+.container {
+  display: flex;
+  align-items: stretch; 
+  justify-content: space-between;
+  gap: 60px;
+  width: 100%;
+  max-width: 1300px;
+  flex-direction: row-reverse;
+   margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.divider {
+  width: 100%;
+  height: 2px;
+  background-color: #333;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  opacity: 0.7;
+}
+
+
+.imageBox {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  position: relative;
+ 
+}
+
+.imageBox img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+
+  transition: all 0.4s ease;
+}
+
+.imageBox img:hover {
+  transform: scale(1.02);
+
+}
+
+
+.formBox {
+  flex: 1;
+  background:#000000;
+  backdrop-filter: blur(12px);
+  padding: 35px 35px; 
+  border-radius: 22px; 
+   border: 3px solid #f15b2b;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  transition: all 0.4s ease;
+}
+
+.formBox h2 {
+  color: #fff;
+  font-size: 2rem;
+  margin-bottom: 24px;
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px; 
+  height: 100%;
+}
+
+.form input,
+.form select,
+.form textarea {
+  background: #231f20;
+  border: none;
+  border-radius: 10px;
+  padding: 16px;
+  color: white;
+  font-size: 1.05rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.form input::placeholder,
+.form textarea::placeholder {
+  color: #ccc;
+}
+
+.form textarea {
+   height: 80px;
+  resize: none;
+}
+
+.form select option {
+  color: black;
+}
+
+.form button {
+  background: #f05a2b;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 16px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.form button:hover {
+  background: #ff6b35;
+  transform: translateY(-3px);
+}
+
+
+.status {
+  margin-top: 16px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.success {
+  background: white;
+  color: rgba(34, 197, 94, 0.95);
+}
+
+.error {
+  background: rgba(239, 68, 68, 0.95);
+  color: black;
+}
+
+
+.phoneContainer {
+  direction: ltr;
+  width: 100%;
+}
+
+.phoneInputContainer {
+  width: 100%;
+}
+
+.phoneInput {
+  width: 100% !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 10px !important;
+  padding: 14px 14px 14px 60px !important; /* ← أضف مساحة يسار النص لتبعد عن العلم */
+  font-size: 1rem !important;
+  font-family: "SST", sans-serif !important;
+}
+.form select {
+  background: #231f20;
+  border: none;
+  border-radius: 10px;
+  padding: 16px;
+  color: #fff;
+  font-size: 1.05rem;
+  outline: none;
+  transition: all 0.3s ease;
+  appearance: none;
+}
+
+.form select option {
+  color: #ffffff; 
+  background: #000000; 
+}
+
+.flagButton {
+  background: transparent !important;
+  border: none !important;
+}
+
+
+.react-tel-input .country-list {
+  background-color: #fff !important; 
+  color: #000 !important; 
+  border-radius: 10px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.react-tel-input .country-list .country {
+  color: #000 !important;
+}
+
+.react-tel-input .country-list .country-name {
+  color: #000 !important;
+}
+
+.react-tel-input .country-list .country:hover,
+.react-tel-input .country-list .country.highlight {
+  background-color: rgba(240, 90, 43, 0.1) !important; 
+}
+
+.react-tel-input .flag-dropdown {
+  background: transparent !important;
+  border: none !important;
+}
+
+.react-tel-input .selected-flag {
+  background: transparent !important;
+}
+
+.react-tel-input .country-list .dial-code {
+  color: #444 !important; 
+}
+
+
+
+
+@media (max-width: 1200px) {
+  .imageBox {
+    display: none;
+  }
+
+   .container {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center; 
+    align-items: center;   
+  }
+
+  .formBox {
+    width: 95%;
+    max-width: 700px;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .contactSection {
+    padding: 60px 6%;
+  } 
+  
+  .container {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center; 
+    align-items: center;     
+  }
+
+  .formBox {
+    width: 95%;
+    max-width: 700px;
+    margin: 0 auto; 
+  }
+
+  .imageBox {
+    display: none; 
+  }
+
+
+
+  .formBox h2 {
+    font-size: 1.6rem;
+  }
+}
+
+@media (min-width: 1300px) {
+  .imageBox img {
+    max-width: 650px; 
+  }
+
+  .formBox {
+    max-width: 650px; 
+  }
+} 

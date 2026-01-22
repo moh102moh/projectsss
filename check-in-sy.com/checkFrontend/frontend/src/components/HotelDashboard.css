@@ -1,0 +1,172 @@
+/* -------------------------- */
+/* 🔷 الصفحة العامة */
+/* -------------------------- */
+.hotel-dashboard {
+  direction: rtl;
+  padding: 20px;
+  font-family: "Tahoma", sans-serif;
+}
+
+.hotel-dashboard h2 {
+  margin-top: 40px;
+  margin-bottom: 15px;
+  background: #0077c2;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 20px;
+}
+
+/* -------------------------- */
+/* 🔷 الفورمات */
+/* -------------------------- */
+
+form {
+  background: #f7f7f7;
+  padding: 15px;
+  border-radius: 8px;
+  display: grid;
+  gap: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+}
+
+form input,
+form select {
+  padding: 8px;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 14px;
+}
+
+form input[type="file"] {
+  border: none;
+}
+
+form button {
+  padding: 10px;
+  background: #0077c2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+form button:hover {
+  background: #005fa3;
+}
+
+form button[type="button"] {
+  background: #c62828;
+}
+
+form button[type="button"]:hover {
+  background: #b71c1c;
+}
+
+/* -------------------------- */
+/* 🔷 الجداول */
+/* -------------------------- */
+
+.table-box {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+table thead {
+  background: #005fa3;
+  color: rgb(0, 0, 0);
+}
+
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+table tr:nth-child(even) {
+  background: #f3f6f9;
+}
+
+table img {
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* -------------------------- */
+/* 🔷 أزرار الإجراءات */
+/* -------------------------- */
+
+table button {
+  padding: 6px 10px;
+  border: none;
+  margin: 2px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+table button:first-child {
+  background: #ff9800;
+  color: white;
+}
+
+table button:first-child:hover {
+  background: #ef6c00;
+}
+
+table button:last-child {
+  background: #d32f2f;
+  color: white;
+}
+
+table button:last-child:hover {
+  background: #b71c1c;
+}
+
+/* -------------------------- */
+/* 🔷 صور */
+.room-images-preview,
+.room-images-list {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.room-images-preview img,
+.room-images-list img {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  object-fit: cover;
+}
+
+.main-hotel-image {
+  width: 200px;
+  border-radius: 8px;
+}
+
+/* -------------------------- */
+/* 🔷 قسم الحجز */
+/* -------------------------- */
+.booking-container {
+  margin-top: 40px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  background: #fafafa;
+  border-radius: 10px;
+}

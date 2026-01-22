@@ -1,0 +1,129 @@
+
+@import url('https://fonts.cdnfonts.com/css/devil-breeze');
+@import url('https://fonts.cdnfonts.com/css/poppins');
+
+.statsSection {
+    background-color: #000;
+   
+    padding: 20px 5%; 
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+ 
+    min-height: auto; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+
+}
+
+.statsGrid {
+    display: grid;
+   
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 15px; 
+    width: 100%;
+    max-width: 1200px;
+}
+
+.statCard {
+    background-color: #000;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+ 
+    padding: 20px 10px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.statCard:hover {
+    transform: translateY(-3px);
+    border-color: #eac400;
+}
+
+.statNumber {
+    font-family: 'devil breeze', sans-serif;
+    color: #fff;
+  
+    font-size: 2.8rem; 
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.statLabel {
+    color: #c9c9c8;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+
+
+@media (max-width: 1024px) {
+    .statsGrid {
+
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .statNumber {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .statsGrid {
+      
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 10px;
+    }
+    .statsSection {
+        padding: 15px 5%;
+    }
+}
+
+@media (max-width: 480px) {
+    .statNumber {
+        font-size: 2rem;
+    }
+    .statLabel {
+        font-size: 0.75rem;
+    }
+}@media (max-width: 1024px) {
+    .statsSection {
+        margin-bottom: 60px; 
+    }
+}@media (max-width: 768px) {
+    .statsSection {
+        margin-bottom: 80px;
+    }
+}
+@media (max-width: 480px) {
+    .statsSection {
+        margin-bottom: 100px;
+    }
+}
+
+
+@media (min-width: 1600px) {
+  .statsSection {
+    margin-bottom: 200px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .statsSection {
+    margin-bottom: 160px; 
+  }
+}
+
+@media (min-width: 1025px) {
+  .statsSection {
+    margin-bottom: 160px;
+  }
+}
+

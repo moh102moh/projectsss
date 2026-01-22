@@ -1,0 +1,360 @@
+
+.section {
+    padding: 3rem 0;
+  
+    background-color: #231f20;
+}
+
+.sectionHeader {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 1rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sectionHeader h2 {
+    font-size: 2.5rem;
+    color: #F15b2b;
+    font-weight: 700;
+    margin: 0;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.sectionHeader h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background-color: #3fa0ba;
+    border-radius: 2px;
+}
+
+.sectionHeader p {
+    font-size: 1.1rem;
+    color: #ffffff;
+    margin-top: 1rem;
+}
+
+.packagesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 0 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.packageCard {
+    background-color: #000000;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    padding: 1.5rem 0 1.5rem 0;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; 
+    border: 1px solid #eee; 
+}
+
+
+.packageCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border-color: #3fa0ba; 
+}
+
+.cardHeader {
+    text-align: center;
+    margin-bottom: 1rem;
+    padding: 0 1.5rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 1rem;
+}
+
+.cardHeader h3 {
+    font-size: 1.6rem;
+    color: #F15b2b;
+    margin: 0;
+    font-weight: 700;
+}
+
+.cardHeader p {
+    color: #ffffff; 
+    font-size: 1.1rem; 
+    margin-top: 0.25rem;
+}
+
+.priceDisplay {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0.5rem 0 1rem 0;
+}
+
+.priceDisplay span {
+    font-size: 1.2rem;
+    color: #ffffff;
+    font-weight: 500;
+    margin-right: 0.5rem;
+}
+
+.featuresList {
+    list-style: none;
+    padding: 0;
+    margin: 1rem auto 0 auto; 
+    width: 85%; 
+}
+
+.featuresList li {
+    background-color: #231f20; 
+    color: #ffffff; 
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center; 
+    padding: 0.75rem 0; 
+    margin-bottom: 0.5rem; 
+    border-radius: 6px; 
+    width: 100%; 
+}
+
+
+.featuresList li:last-child {
+    border-bottom: none;
+}
+
+.featureIcon {
+    display: none;
+    margin-left: 0.75rem;
+    color: #F15b2b;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    min-width: 15px;
+}
+
+
+.highlightedFeature { 
+    font-weight: 700;
+    background-color: #3fa0ba !important; 
+    padding-top: 0.5rem !important;
+}
+
+
+.bookButton {
+    display: block;
+    width: calc(100% - 3rem);
+    margin: 1.5rem auto 0 auto;
+    padding: 0.75rem;
+    background-color: #F15b2b;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.bookButton:hover {
+    background-color: #3fa0ba;
+}
+
+
+
+.sectionButton {
+margin: 15px 12px;
+  padding: 10px 20px;
+  background-color: #F15b2b;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  display: inline-block;
+  transition: background-color 0.2s;
+}
+
+.packagesHeader {
+  position: relative;
+  padding: 2rem 0;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+
+.packagesHeader h1 {
+  font-size: 3rem;
+  color: #ffffff;
+  letter-spacing: 0.2em;
+  margin: 0;
+  font-weight: 700;
+}
+
+.contactButton {
+  position: absolute;
+  left: 20px;      
+  top: 50%;
+  transform: translateY(-50%);
+  
+  background-color: #3fa0ba;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+
+.contactButton:hover {
+  background-color: #F15b2b;   
+  transform: translateY(-50%) scale(1.08); 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.sectionButton:hover {
+  background-color: #3fa0ba; 
+}
+@media (max-width: 1200px) {
+  .sectionHeader h2 {
+    font-size: 2.8rem;
+    letter-spacing: 2px;
+  }
+}
+
+
+@media (max-width: 992px) {
+  .sectionHeader h2 {
+    font-size: 2.6rem;
+  }
+  .cardHeader h3 {
+    font-size: 1.9rem;
+  }
+}
+
+/* ============================================
+   📲 768px — تابلت صغير
+   ============================================ */
+@media (max-width: 768px) {
+  .packagesGrid {
+    grid-template-columns: 1fr; /* كل الكروت تحت بعض */
+  }
+
+  .packageCard {
+    padding: 20px;
+    width: 90%;
+    margin: auto;
+  }
+
+  .sectionHeader h2 {
+    font-size: 2.4rem;
+    letter-spacing: 3px;
+  }
+
+  .cardHeader h3 {
+    font-size: 1.8rem;
+  }
+
+  .priceDisplay {
+    font-size: 2rem;
+  }
+    .contactButton {
+    position: static;       /* يلغي الـ absolute */
+    display: block;
+    margin: 15px auto 0 auto;  /* يوسّطه */
+    transform: none !important;
+    text-align: center;
+    width: fit-content;
+  }
+  
+  .packagesHeader {
+    padding-bottom: 3rem; /* حتى يكون في مساحة تحت العنوان */
+  }
+
+}
+
+/* ============================================
+   📱 600px — موبايل كبير
+   ============================================ */
+@media (max-width: 600px) {
+  .sectionHeader h2 {
+    font-size: 2.2rem;
+  }
+
+  .cardHeader h3 {
+    font-size: 1.6rem;
+  }
+
+  .featuresList li {
+    font-size: 0.95rem;
+  }
+
+  .packageCard {
+    width: 95%;
+  }
+    .contactButton {
+    position: static;       /* يلغي الـ absolute */
+    display: block;
+    margin: 15px auto 0 auto;  /* يوسّطه */
+    transform: none !important;
+    text-align: center;
+    width: fit-content;
+  }
+  
+  .packagesHeader {
+    padding-bottom: 3rem; /* حتى يكون في مساحة تحت العنوان */
+  }
+
+}
+
+/* ============================================
+   📱 480px — موبايل صغير جداً
+   ============================================ */
+@media (max-width: 480px) {
+
+  .sectionHeader h2 {
+    font-size: 2rem;
+    letter-spacing: 3px;
+  }
+
+  .cardHeader h3 {
+    font-size: 1.4rem;
+  }
+
+  .packageCard {
+    padding: 18px;
+    width: 100%;
+  }
+
+  .priceDisplay {
+    font-size: 1.8rem;
+  }
+
+  .featuresList li {
+    font-size: 0.9rem;
+  }
+
+  .bookButton {
+    font-size: 1rem;
+    padding: 14px 0;
+  }
+    .contactButton {
+    position: static;       /* يلغي الـ absolute */
+    display: block;
+    margin: 15px auto 0 auto;  /* يوسّطه */
+    transform: none !important;
+    text-align: center;
+    width: fit-content;
+  }
+  
+  .packagesHeader {
+    padding-bottom: 3rem; /* حتى يكون في مساحة تحت العنوان */
+  }
+
+}

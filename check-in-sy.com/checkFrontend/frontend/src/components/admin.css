@@ -1,0 +1,159 @@
+ 
+
+
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Arial', sans-serif;
+  background-color: #f5f5f5;
+}
+
+
+.sidebar {
+  width: 250px;
+  background-color: #1e1e2f;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.sidebar h1 {
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #ffc107;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  transition: all 0.2s;
+}
+
+.sidebar a:hover {
+  background-color: #ffc107;
+  color: black;
+}
+
+.sidebar a.active {
+  background-color: #ffc107;
+  color: black;
+}
+
+
+.admin-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.admin-content h1 {
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+
+
+.dashboard-sections {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+
+.card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  flex: 1 1 45%;
+}
+
+.card h2 {
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+
+form input,
+form select,
+form button {
+  display: block;
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+form button {
+  background-color: #1e1e2f;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+form button:hover {
+  background-color: #ffc107;
+  color: black;
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+table th {
+  background-color: #f0f0f0;
+}
+
+table tr:hover {
+  background-color: #f9f9f9;
+}
+
+
+.edit-user-form {
+  display: flex;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+button {
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+
+.message {
+  margin-bottom: 10px;
+  color: green;
+  font-weight: bold;
+}
+
+
+@media (max-width: 900px) {
+  .dashboard-sections {
+    flex-direction: column;
+  }
+  .card {
+    flex: 1 1 100%;
+  }
+}
